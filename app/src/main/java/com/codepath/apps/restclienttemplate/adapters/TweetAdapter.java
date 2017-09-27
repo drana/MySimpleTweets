@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.apps.restclienttemplate.utils.CommonUtils;
 
 import java.util.ArrayList;
 
@@ -23,8 +24,15 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         mTweet = tweets;
     }
 
+    @Override
+    public int getItemViewType(int position) {
 
+        Tweet tweet = mTweet.get(position);
+        // check if tweet has image or no image and load item_tweet accoordingly
 
+        return CommonUtils.TWEET_IMAGE;
+
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,4 +48,6 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public int getItemCount() {
         return 0;
     }
+
+
 }
