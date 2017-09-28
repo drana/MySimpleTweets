@@ -47,7 +47,6 @@ public class User implements Parcelable{
     }
 
 
-
     protected User(Parcel in) {
         name = in.readString();
         screenName = in.readString();

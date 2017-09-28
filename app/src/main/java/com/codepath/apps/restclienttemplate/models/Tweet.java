@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by dipenrana on 9/26/17.
@@ -26,15 +27,19 @@ public class Tweet implements Parcelable{
     private String createdAt;
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private long id;
     @SerializedName("text")
     @Expose
     private String text;
+    @SerializedName("user")
+    @Expose
+    private User user;
 
     protected Tweet(Parcel in) {
         createdAt = in.readString();
         text = in.readString();
         id = in.readInt();
+
     }
 
     public  Tweet(){
@@ -61,11 +66,11 @@ public class Tweet implements Parcelable{
         this.createdAt = createdAt;
     }
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -77,6 +82,14 @@ public class Tweet implements Parcelable{
         this.text = text;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -86,18 +99,15 @@ public class Tweet implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(createdAt);
         parcel.writeString(text);
-        parcel.writeInt(id);
+        parcel.writeLong(id);
+
     }
 
-    public static Tweet parseJson(String responseData) throws JSONException {
+    public static Tweet parseJson(JSONObject jsonObject) throws JSONException {
+
         Tweet tweet = new Tweet();
-
-        Gson gson = new GsonBuilder().create();
-//        tweet.setText(jsonObject.getString("text"));
-//        tweet.setId(jsonObject.getInt("id"));
-//        tweet.setCreatedAt(jsonObject.getString("created_at"));
-
-        tweet = gson.fromJson(responseData,Tweet.class);
+        Gson gson =  new GsonBuilder().create();
+             tweet = gson.fromJson(String.valueOf(jsonObject),Tweet.class);
 
         return  tweet;
     }
