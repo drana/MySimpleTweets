@@ -31,7 +31,7 @@ public class TimelineActivity extends AppCompatActivity {
         
         client = TwitterApp.getRestClient();
 
-        //intialize tweet
+        //initialize tweet
         tweets = new ArrayList<Tweet>();
 
 
