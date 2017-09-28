@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 
 public class TweetItemNoImage extends RecyclerView.ViewHolder{
     public TextView getTweetName() {
-        return tweetName;
+        return tweetNamePlain;
     }
 
     public TextView getTweetUserName() {
@@ -35,16 +35,15 @@ public class TweetItemNoImage extends RecyclerView.ViewHolder{
         return tweetProfileImage;
     }
 
-    @BindView(R.id.tvName)TextView tweetName;
-    @BindView(R.id.tvUserName)TextView tweetUserName;
-    @BindView(R.id.tvCreatedAt)TextView tweetCreatedAt;
-    @BindView(R.id.tvTweetContent)TextView tweetContent;
-    @BindView(R.id.ivProfleImage)ImageView tweetProfileImage;
+    @BindView(R.id.tvNamePlain)TextView tweetNamePlain;
+    @BindView(R.id.tvUserNamePlain)TextView tweetUserName;
+    @BindView(R.id.tvCreatedAtPlain)TextView tweetCreatedAt;
+    @BindView(R.id.tvTweetContentPlain)TextView tweetContent;
+    @BindView(R.id.ivProfleImagePlain)ImageView tweetProfileImage;
 
 
     public TweetItemNoImage(View viewItem){
         super(viewItem);
         ButterKnife.bind(this,viewItem);
-
     }
 }

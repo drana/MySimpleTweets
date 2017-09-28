@@ -2,11 +2,15 @@ package com.codepath.apps.restclienttemplate.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.ToolbarWidgetWrapper;
 import android.util.Log;
 
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApp;
+import com.codepath.apps.restclienttemplate.adapters.TweetAdapter;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -17,22 +21,35 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 public class TimelineActivity extends AppCompatActivity {
-    
+
+    //@BindView(R.id.rvTweets)
+    RecyclerView rvTweets;
     TwitterClient client;
     ArrayList<Tweet> tweets;
+    TweetAdapter tweetAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-        
         client = TwitterApp.getRestClient();
 
-        //initialize tweet
-        tweets = new ArrayList<Tweet>();
+        //ButterKnife.bind(this);
+        rvTweets = (RecyclerView) findViewById(R.id.rvTweets);
+
+        //initialize data source
+        tweets = new ArrayList<>();
+        //construct adapter from data source
+        tweetAdapter= new TweetAdapter(this,tweets);
+        //set adapter and layout manager
+        rvTweets.setAdapter(tweetAdapter);
+        rvTweets.setLayoutManager(new LinearLayoutManager(this));
 
 
 
@@ -53,6 +70,7 @@ public class TimelineActivity extends AppCompatActivity {
                     try {
                         Tweet tweet = Tweet.parseJson(response.getJSONObject(i));
                         tweets.add(tweet);
+                        tweetAdapter.notifyItemInserted(tweets.size()-1);
                         Log.d("response", response.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();

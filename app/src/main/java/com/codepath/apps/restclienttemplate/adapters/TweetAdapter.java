@@ -5,7 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.activities.TweetItem;
 import com.codepath.apps.restclienttemplate.activities.TweetItemNoImage;
@@ -34,8 +37,10 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         Tweet tweet = mTweet.get(position);
         // check if tweet has image or no image and load item_tweet accoordingly
-
+        if(tweet.getUrls()!=null)
         return CommonUtils.TWEET_IMAGE;
+        else
+            return CommonUtils.TWEET_NO_IMAGE;
 
     }
 
@@ -64,6 +69,78 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+        TweetItemNoImage vh1 = (TweetItemNoImage) holder;
+        BindItemWithNoImage(vh1,position);
+
+//        switch (holder.getItemViewType()) {
+//            case CommonUtils.TWEET_IMAGE:
+//                TweetItem vh1 = (TweetItem) holder;
+//                BindItemWithImage(vh1,position);
+//                break;
+//            case CommonUtils.TWEET_NO_IMAGE:
+//                TweetItemNoImage vh2 = (TweetItemNoImage) holder;
+//                BindItemWithNoImage(vh2,position);
+//
+//                break;
+//            default:
+//                TweetItem vh = (TweetItem) holder;
+//
+//                break;
+//        }
+
+    }
+
+    private void BindItemWithNoImage(TweetItemNoImage holder, int position) {
+
+        // Get the data model based on position
+        Tweet tweet = mTweet.get(position);
+        TextView tvName = holder.getTweetName();
+        TextView tvUserName = holder.getTweetUserName();
+        TextView tvContent = holder.getTweetContent();
+        TextView tvCreateAt =  holder.getTweetCreatedAt();
+        ImageView ivProfileImage =  holder.getTweetProfileImage();
+
+        tvName.setText(tweet.getUser().getName());
+        tvUserName.setText(tweet.getUser().getScreenName());
+        tvContent.setText(tweet.getText());
+        tvCreateAt.setText(tweet.getCreatedAt());
+
+    }
+
+    private void BindItemWithImage(TweetItem holder, int position) {
+
+        Tweet tweet = mTweet.get(position);
+        TextView tvName = holder.getTweetName();
+        TextView tvUserName = holder.getTweetUserName();
+        TextView tvContent = holder.getTweetContent();
+        TextView tvCreateAt =  holder.getTweetCreatedAt();
+        ImageView ivProfileImage =  holder.getTweetProfileImage();
+        ImageView ivUrlImage = holder.getTweetUrlImage();
+
+
+
+
+        ivProfileImage.setImageResource(0);
+        ivUrlImage.setImageResource(0);
+
+        //String imgURL = CommonUtils.IMAGE_URL_PREFIX + article.getMultimedia().get(0).getUrl();
+        //String imgProfile =
+
+
+//        Glide.with(mContext)
+//                .load(imgURL)
+//                .centerCrop()
+//                .placeholder(R.drawable.placeholder)
+//                .error(R.drawable.placeholder).into(ivArticleImage);
+
+
+        tvName.setText(tweet.getUser().getName());
+        tvUserName.setText(tweet.getUser().getScreenName());
+        tvContent.setText(tweet.getText());
+        tvCreateAt.setText(tweet.getCreatedAt());
+
+
 
     }
 
