@@ -21,6 +21,10 @@ public class User implements Parcelable{
     @SerializedName("screen_name")
     @Expose
     private String screenName;
+    @SerializedName("profile_image_url")
+    @Expose
+    private String profileImageUrl;
+
 
     public Integer getId() {
         return id;
@@ -46,11 +50,20 @@ public class User implements Parcelable{
         this.screenName = screenName;
     }
 
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
+
 
     protected User(Parcel in) {
         name = in.readString();
         screenName = in.readString();
         id = in.readInt();
+        profileImageUrl = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -75,5 +88,6 @@ public class User implements Parcelable{
         parcel.writeString(name);
         parcel.writeString(screenName);
         parcel.writeInt(id);
+        parcel.writeString(profileImageUrl);
     }
 }

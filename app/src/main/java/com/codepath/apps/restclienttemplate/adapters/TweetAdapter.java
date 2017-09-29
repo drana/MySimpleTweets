@@ -104,7 +104,17 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         tvName.setText(tweet.getUser().getName());
         tvUserName.setText(tweet.getUser().getScreenName());
         tvContent.setText(tweet.getText());
-        tvCreateAt.setText(tweet.getCreatedAt());
+        String parseDateTime = CommonUtils.getRelativeTimeAgo(tweet.getCreatedAt());
+        tvCreateAt.setText(parseDateTime);
+
+        String imgUrl = tweet.getUser().getProfileImageUrl();
+
+        Glide.with(mContext)
+                .load(imgUrl)
+                .centerCrop()
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder).into(ivProfileImage);
+
 
     }
 

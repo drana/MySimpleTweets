@@ -27,8 +27,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class TimelineActivity extends AppCompatActivity {
 
-    //@BindView(R.id.rvTweets)
-    RecyclerView rvTweets;
+    @BindView(R.id.rvTweets)RecyclerView rvTweets;
     TwitterClient client;
     ArrayList<Tweet> tweets;
     TweetAdapter tweetAdapter;
@@ -40,8 +39,7 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
         client = TwitterApp.getRestClient();
 
-        //ButterKnife.bind(this);
-        rvTweets = (RecyclerView) findViewById(R.id.rvTweets);
+        ButterKnife.bind(this);
 
         //initialize data source
         tweets = new ArrayList<>();
