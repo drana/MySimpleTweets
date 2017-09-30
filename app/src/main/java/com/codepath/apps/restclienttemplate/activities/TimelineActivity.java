@@ -1,20 +1,24 @@
 package com.codepath.apps.restclienttemplate.activities;
 
+import android.content.Context;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.ToolbarWidgetWrapper;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApp;
 import com.codepath.apps.restclienttemplate.adapters.TweetAdapter;
+import com.codepath.apps.restclienttemplate.fragments.ComposeTweetFragment;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -29,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
-public class TimelineActivity extends AppCompatActivity {
+public class TimelineActivity extends AppCompatActivity implements ComposeTweetFragment.TweetDialogListener{
 
     @BindView(R.id.rvTweets)RecyclerView rvTweets;
     @BindView(R.id.toolbar)
@@ -80,14 +84,16 @@ public class TimelineActivity extends AppCompatActivity {
 
         if(item.getItemId() == R.id.miComposeTweet){
             FragmentManager fm = getSupportFragmentManager();
-            //FilterFragment filterFragment = FilterFragment.newInstance();
-            //filterFragment.show(fm, "fragFilter");
+            ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance();
+            composeTweetFragment.setStyle( DialogFragment.STYLE_NORMAL, R.style.AppBaseTheme );
+            composeTweetFragment.show(fm, "tweetFrag");
         }
         if (item.getItemId() == android.R.id.home) {
             finish(); // close this activity and return to preview activity (if there is any)
         }
         return  true;
     }
+
 
     private void populateTimeline() {
         client.getHomeTimeline(new JsonHttpResponseHandler(){
@@ -128,5 +134,10 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.d("TwitterClient",responseString);
             }
         });
+    }
+
+    @Override
+    public void onSendTweetMessage(ComposeTweetFragment composeTweet) {
+
     }
 }
