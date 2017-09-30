@@ -13,7 +13,9 @@
         android:layout_height="50dp"
         app:srcCompat="@drawable/placeholder"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"/>
 
     <ImageButton
         android:id="@+id/ivComposeCancel"
@@ -27,20 +29,24 @@
         android:id="@+id/tvNameCompose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
         android:text="TextView"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/ivProfileImageCompose" />
+        android:textColor="@color/secondary_black"
+        android:layout_toEndOf="@+id/ivProfileImageCompose"
+        android:layout_alignTop="@+id/ivProfileImageCompose" />
 
     <TextView
         android:id="@+id/tvUserNameCompose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tvNameCompose"
+        android:layout_marginLeft="3dp"
+        android:text="TextView"
+        android:textColor="@color/secondary_dark_gray"
         android:layout_below="@+id/tvNameCompose"
-        android:text="TextView" />
+        android:layout_alignStart="@+id/tvNameCompose" />
 
     <EditText
-        android:id="@+id/tvTweetMssg"
+        android:id="@+id/etTweetMssg"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_below="@+id/ivProfileImageCompose"
@@ -57,7 +63,7 @@
         android:layout_height="1dp"
         android:background="@color/divider"
         android:layout_margin="5dp"
-        android:layout_below="@id/tvTweetMssg"/>
+        android:layout_below="@id/etTweetMssg"/>
 
     <TextView
         android:id="@+id/tvWordCounter"

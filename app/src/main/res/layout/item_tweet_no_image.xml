@@ -11,7 +11,7 @@
         app:srcCompat="@drawable/placeholder"
         android:layout_alignTop="@+id/tvName"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="14dp" />
+        android:layout_marginStart="15dp" />
 
     <TextView
         android:id="@+id/tvNamePlain"

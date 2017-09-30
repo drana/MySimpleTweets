@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate.fragments;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -11,11 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApp;
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -38,12 +41,13 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
 
     @BindView(R.id.tvNameCompose)TextView tvName;
     @BindView(R.id.tvUserNameCompose)TextView tvUserName;
-    @BindView(R.id.tvTweetMssg)TextView tvTweetMessage;
+    @BindView(R.id.etTweetMssg)EditText etTweetMessage;
     @BindView(R.id.ivProfileImageCompose)ImageView ivProfileImage;
     @BindView(R.id.btnTweet)Button btnTweet;
     @BindView(R.id.ivComposeCancel)ImageButton btnCancel;
     TwitterClient client;
     User user;
+
 
     public ComposeTweetFragment() {
         // Required empty public constructor
@@ -58,13 +62,22 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client = TwitterApp.getRestClient();
+
+
         client.verify_credentials(new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
-                   user  = User.getUserfromJSON(response);
+                    user  = User.getUserfromJSON(response);
                     tvUserName.setText("@"+user.getScreenName());
                     tvName.setText(user.getName());
+                    String imgUrl = user.getProfileImageUrl();
+
+                    Glide.with(getContext())
+                            .load(imgUrl)
+                            .centerCrop()
+                            .placeholder(R.drawable.placeholder)
+                            .error(R.drawable.placeholder).into(ivProfileImage);
                     Log.d("User",user.toString());
 
                 } catch (JSONException e) {
@@ -108,6 +121,11 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
     @Override
     public void onStart() {
         super.onStart();
+        Typeface boldFont = Typeface.createFromAsset(getContext().getAssets(), "fonts/HelveticaNeue-Bold.ttf");
+        Typeface regularFont = Typeface.createFromAsset(getContext().getAssets(), "fonts/HelveticaNeue.ttf");
+        tvName.setTypeface(boldFont);
+        tvUserName.setTypeface(regularFont);
+        etTweetMessage.setTypeface(regularFont);
         getDialog().getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
     }
 
@@ -145,7 +163,7 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
     private void OnTweetMssg() {
 
         Tweet tweet = new Tweet();
-        tweet.setText(tvTweetMessage.getText().toString());
+        tweet.setText(etTweetMessage.getText().toString());
         //tweet.getUser().setName(tvName.getText().toString());
 
         dismiss();
