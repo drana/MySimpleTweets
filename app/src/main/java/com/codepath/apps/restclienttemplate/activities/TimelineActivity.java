@@ -83,6 +83,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         item.getItemId();
 
         if(item.getItemId() == R.id.miComposeTweet){
+            ShowComposeTweet();
             FragmentManager fm = getSupportFragmentManager();
             ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance();
             composeTweetFragment.setStyle( DialogFragment.STYLE_NORMAL, R.style.AppBaseTheme );// fragment fullscreen
@@ -92,6 +93,10 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
             finish(); // close this activity and return to preview activity (if there is any)
         }
         return  true;
+    }
+
+    private void ShowComposeTweet() {
+
     }
 
 
