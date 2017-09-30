@@ -102,7 +102,7 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         ImageView ivProfileImage =  holder.getTweetProfileImage();
 
         tvName.setText(tweet.getUser().getName());
-        tvUserName.setText(tweet.getUser().getScreenName());
+        tvUserName.setText("@" + tweet.getUser().getScreenName());
         tvContent.setText(tweet.getText());
         String parseDateTime = CommonUtils.getRelativeTimeAgo(tweet.getCreatedAt());
         tvCreateAt.setText(parseDateTime);

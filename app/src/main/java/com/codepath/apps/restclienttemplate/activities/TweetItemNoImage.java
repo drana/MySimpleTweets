@@ -1,5 +1,7 @@
 package com.codepath.apps.restclienttemplate.activities;
 
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -45,5 +47,17 @@ public class TweetItemNoImage extends RecyclerView.ViewHolder{
     public TweetItemNoImage(View viewItem){
         super(viewItem);
         ButterKnife.bind(this,viewItem);
+
+        // Create the TypeFace from the TTF asset
+        Typeface boldFont = Typeface.createFromAsset(viewItem.getContext().getAssets(), "fonts/HelveticaNeue-Bold.ttf");
+        Typeface regularFont = Typeface.createFromAsset(viewItem.getContext().getAssets(), "fonts/HelveticaNeue.ttf");
+        // Assign the typeface to the view
+        tweetNamePlain.setTypeface(boldFont);
+        tweetUserName.setTypeface(regularFont);
+        tweetCreatedAt.setTypeface(regularFont);
+        tweetContent.setTypeface(regularFont);
+
     }
+
+
 }

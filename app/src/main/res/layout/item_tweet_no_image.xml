@@ -17,8 +17,9 @@
         android:id="@+id/tvNamePlain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
+        android:layout_marginLeft="3dp"
         android:text="TextView"
+        android:textColor="@color/secondary_black"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/ivProfleImagePlain" />
 
@@ -26,36 +27,32 @@
         android:id="@+id/tvUserNamePlain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
+        android:layout_marginLeft="3dp"
         android:text="TextView"
+        android:textColor="@color/secondary_dark_gray"
         android:layout_below="@id/tvNamePlain"
         android:layout_toEndOf="@id/ivProfleImagePlain"/>
-
-    <!--<ImageView-->
-        <!--android:id="@+id/ivLogo"-->
-        <!--android:layout_width="32dp"-->
-        <!--android:layout_height="32dp"-->
-        <!--app:srcCompat="@drawable/twitter_logo_blue"-->
-        <!--android:layout_alignTop="@+id/tvName"-->
-        <!--android:layout_alignParentEnd="true" />-->
-
-    <TextView
-        android:id="@+id/tvTweetContentPlain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:text="TextView"
-        android:autoLink="web"
-        android:layout_below="@+id/ivProfleImagePlain"
-        android:layout_alignStart="@+id/ivProfleImagePlain" />
 
     <TextView
         android:id="@+id/tvCreatedAtPlain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:textColor="@color/secondary_dark_gray"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/tvTweetContentPlain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="TextView"
+        android:textColor="@color/secondary_black"
+        android:autoLink="web"
+        android:textColorLink="@color/primary"
+        android:layout_alignStart="@+id/tvNamePlain"
+        android:layout_below="@+id/ivProfleImagePlain" />
+
 </RelativeLayout>
