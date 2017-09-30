@@ -85,7 +85,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         if(item.getItemId() == R.id.miComposeTweet){
             FragmentManager fm = getSupportFragmentManager();
             ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance();
-            composeTweetFragment.setStyle( DialogFragment.STYLE_NORMAL, R.style.AppBaseTheme );
+            composeTweetFragment.setStyle( DialogFragment.STYLE_NORMAL, R.style.AppBaseTheme );// fragment fullscreen
             composeTweetFragment.show(fm, "tweetFrag");
         }
         if (item.getItemId() == android.R.id.home) {
@@ -137,7 +137,8 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
     }
 
     @Override
-    public void onSendTweetMessage(ComposeTweetFragment composeTweet) {
-
+    public void onSendTweetMessage(Tweet tweetMssg) {
+        String msg = tweetMssg.getText();
+        Log.d("TWeet",tweetMssg.getText().toString());
     }
 }

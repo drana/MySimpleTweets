@@ -5,15 +5,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.codepath.apps.restclienttemplate.R;
+import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +31,8 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
     @BindView(R.id.tvUserNameCompose)TextView tvUserName;
     @BindView(R.id.tvTweetMssg)TextView tvTweetMessage;
     @BindView(R.id.ivProfileImageCompose)ImageView ivProfileImage;
+    @BindView(R.id.btnTweet)Button btnTweet;
+    @BindView(R.id.ivComposeCancel)ImageButton btnCancel;
 
     public ComposeTweetFragment() {
         // Required empty public constructor
@@ -57,6 +63,10 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        btnTweet.setOnClickListener(this);
+        btnCancel.setOnClickListener(this);
+
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -64,6 +74,35 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
     @Override
     public void onClick(View view) {
 
+        switch (view.getId()){
+            case R.id.btnTweet:
+                OnTweetMssg();
+                break;
+            case R.id.ivComposeCancel:
+                OnCancel();
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    private void OnCancel() {
+        dismiss();
+        Log.d("btn","cancel clicked");
+    }
+
+    private void OnTweetMssg() {
+
+        Tweet tweet = new Tweet();
+        tweet.setText(tvTweetMessage.getText().toString());
+        //tweet.getUser().setName(tvName.getText().toString());
+
+        dismiss();
+        TweetDialogListener mListener = (TweetDialogListener) getActivity();
+        mListener.onSendTweetMessage(tweet);
+
+        Log.d("btn","save clicked");
     }
 
 
@@ -74,6 +113,6 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
 
     //interface for passing filters back to activity
     public interface TweetDialogListener{
-        void onSendTweetMessage(ComposeTweetFragment composeTweet);
+        void onSendTweetMessage(Tweet tweet);
     }
 }
