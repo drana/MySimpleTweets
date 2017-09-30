@@ -45,8 +45,9 @@
         android:layout_height="400dp"
         android:layout_below="@+id/ivProfileImageCompose"
         android:layout_marginTop="12dp"
-        android:text="Whats Happening"
+        android:hint="What's Happening?"
         android:gravity="top"
+        android:backgroundTint="@android:color/transparent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true" />
 

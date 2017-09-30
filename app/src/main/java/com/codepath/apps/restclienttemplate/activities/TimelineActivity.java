@@ -83,7 +83,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         item.getItemId();
 
         if(item.getItemId() == R.id.miComposeTweet){
-            ShowComposeTweet();
+            //ShowComposeTweet();
             FragmentManager fm = getSupportFragmentManager();
             ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance();
             composeTweetFragment.setStyle( DialogFragment.STYLE_NORMAL, R.style.AppBaseTheme );// fragment fullscreen
@@ -96,7 +96,44 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
     }
 
     private void ShowComposeTweet() {
+        client.verify_credentials(new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.d("Twitterclient", response.toString());
+            }
 
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+
+                for(int i =0; i< response.length();i++){
+                    try {
+                        Tweet tweet = Tweet.parseJson(response.getJSONObject(i));
+                        //tweets.add(tweet);
+                        //tweetAdapter.notifyItemInserted(tweets.size()-1);
+                        Log.d("response", response.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                Log.d("TwitterClient", response.toString());
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.d("TwitterClient",errorResponse.toString());
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                Log.d("TwitterClient",errorResponse.toString());
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.d("TwitterClient",responseString);
+            }
+        });
     }
 
 

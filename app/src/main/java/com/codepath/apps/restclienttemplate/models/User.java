@@ -2,8 +2,14 @@ package com.codepath.apps.restclienttemplate.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
@@ -14,7 +20,7 @@ public class User implements Parcelable{
 
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private long id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -25,12 +31,16 @@ public class User implements Parcelable{
     @Expose
     private String profileImageUrl;
 
+    //constructor
+    public User(){
 
-    public Integer getId() {
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -62,7 +72,7 @@ public class User implements Parcelable{
     protected User(Parcel in) {
         name = in.readString();
         screenName = in.readString();
-        id = in.readInt();
+        id = in.readLong();
         profileImageUrl = in.readString();
     }
 
@@ -87,7 +97,16 @@ public class User implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         parcel.writeString(screenName);
-        parcel.writeInt(id);
+        parcel.writeLong(id);
         parcel.writeString(profileImageUrl);
+    }
+
+    public static User getUserfromJSON(JSONObject jsonObject) throws JSONException {
+
+        User user = new User();
+        Gson gson =  new GsonBuilder().create();
+        user = gson.fromJson(String.valueOf(jsonObject),User.class);
+
+        return  user;
     }
 }
