@@ -133,12 +133,18 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         TextView tvCreateAt =  holder.getTweetCreatedAt();
         ImageView ivProfileImage =  holder.getTweetProfileImage();
         ImageView ivTweetImage = holder.getTweetUrlImage();
+        ImageView ivVerifiedUser = holder.getIsVerified();
 
         tvName.setText(tweet.getUser().getName());
         tvUserName.setText("@" + tweet.getUser().getScreenName());
-        tvContent.setText(tweet.getText());
+        tvContent.setText(tweet.getText().replace("\n",""));
         String parseDateTime = CommonUtils.getRelativeTimeAgo(tweet.getCreatedAt());
         tvCreateAt.setText(parseDateTime);
+
+        Boolean verified = tweet.getUser().getVerified();
+        if(verified) {
+            ivVerifiedUser.setVisibility(View.VISIBLE);
+        }
 
         String imgUrl = tweet.getUser().getProfileImageUrl();
         String tweetURL = tweet.getEntities().getMedia().get(0).getMediaUrl();
@@ -146,7 +152,6 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         Glide.with(mContext)
                 .load(imgUrl)
-                .centerCrop()
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder).into(ivProfileImage);
 

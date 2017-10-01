@@ -37,11 +37,20 @@ public class TweetItemNoImage extends RecyclerView.ViewHolder{
         return tweetProfileImage;
     }
 
+    public ImageView getIvVerifiedUserPlain() {
+        return ivVerifiedUserPlain;
+    }
+
+    public void setIvVerifiedUserPlain(ImageView ivVerifiedUserPlain) {
+        this.ivVerifiedUserPlain = ivVerifiedUserPlain;
+    }
+
     @BindView(R.id.tvNamePlain)TextView tweetNamePlain;
     @BindView(R.id.tvUserNamePlain)TextView tweetUserName;
     @BindView(R.id.tvCreatedAtPlain)TextView tweetCreatedAt;
     @BindView(R.id.tvTweetContentPlain)TextView tweetContent;
     @BindView(R.id.ivProfleImagePlain)ImageView tweetProfileImage;
+    @BindView(R.id.ivVerifiedUserPlain)ImageView ivVerifiedUserPlain;
 
 
     public TweetItemNoImage(View viewItem){

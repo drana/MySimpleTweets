@@ -7,12 +7,11 @@
 
     <ImageView
         android:id="@+id/ivProfleImage"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         app:srcCompat="@drawable/placeholder"
-        android:layout_alignTop="@+id/tvName"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="15dp" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/tvName"
@@ -23,6 +22,15 @@
         android:textColor="@color/secondary_black"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/ivProfleImage" />
+
+    <ImageView
+        android:id="@+id/ivVerifiedUser"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="3dp"
+        android:src="@drawable/ic_verified_badge"
+        android:layout_toRightOf="@id/tvName"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/tvUserName"
@@ -45,29 +53,29 @@
 
     <TextView
         android:id="@+id/tvTweetContent"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:ellipsize="end"
         android:maxLines="3"
         android:text="TextView"
         android:textColor="@color/secondary_black"
         android:autoLink="web"
         android:textColorLink="@color/primary"
-        android:layout_alignStart="@+id/tvName"
-        android:layout_below="@+id/ivProfleImage" />
+        android:layout_below="@+id/tvUserName"
+        android:layout_alignStart="@+id/tvUserName" />
 
 
     <ImageView
         android:id="@+id/ivURLImage"
         android:layout_width="match_parent"
         android:layout_height="210dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvTweetContent"
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
         android:layout_marginTop="20dp"
-        app:srcCompat="@drawable/placeholder" />
+        app:srcCompat="@drawable/placeholder"
+        android:layout_below="@+id/ivProfleImage"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

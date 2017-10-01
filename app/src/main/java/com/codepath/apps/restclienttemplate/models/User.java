@@ -30,6 +30,9 @@ public class User implements Parcelable{
     @SerializedName("profile_image_url")
     @Expose
     private String profileImageUrl;
+    @SerializedName("verified")
+    @Expose
+    private Boolean verified;
 
     //constructor
     public User(){
@@ -68,12 +71,21 @@ public class User implements Parcelable{
         this.profileImageUrl = profileImageUrl;
     }
 
+    public Boolean getVerified() {
+        return verified;
+    }
+
+    public void setVerified(Boolean verified) {
+        this.verified = verified;
+    }
+
 
     protected User(Parcel in) {
         name = in.readString();
         screenName = in.readString();
         id = in.readLong();
         profileImageUrl = in.readString();
+        verified = in.readByte() != 0;
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -99,6 +111,7 @@ public class User implements Parcelable{
         parcel.writeString(screenName);
         parcel.writeLong(id);
         parcel.writeString(profileImageUrl);
+        parcel.writeByte((byte) (verified ? 1 : 0));
     }
 
     public static User getUserfromJSON(JSONObject jsonObject) throws JSONException {

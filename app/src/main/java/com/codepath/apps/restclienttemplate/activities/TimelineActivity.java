@@ -81,8 +81,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         //swipe action listner
         SetupSwipeListner();
 
-        RecyclerView.ItemDecoration itemDecoration = new
-                DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         rvTweets.addItemDecoration(itemDecoration);
 
     }
