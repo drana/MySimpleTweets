@@ -1,9 +1,11 @@
 package com.codepath.apps.restclienttemplate.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,8 +41,8 @@ import cz.msebera.android.httpclient.Header;
 public class TimelineActivity extends AppCompatActivity implements ComposeTweetFragment.TweetDialogListener{
 
     @BindView(R.id.rvTweets)RecyclerView rvTweets;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.toolbar)Toolbar toolbar;
+    @BindView(R.id.swipeContainer)SwipeRefreshLayout swipeContainer;
     TwitterClient client;
     ArrayList<Tweet> tweets;
     TweetAdapter tweetAdapter;
@@ -74,6 +76,28 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
 
         //populateTimeline();
         LoadTweetsTimeline(false);
+
+        //swipe action listner
+        SetupSwipeListner();
+
+
+    }
+
+    private void SetupSwipeListner() {
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                LoadTweetsTimeline(false);
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(R.color.primary);
+
+
     }
 
     private void SetupScrollListener() {
@@ -81,7 +105,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                                    LoadTweetsTimeline(true);
+                LoadTweetsTimeline(true);
             }
         };
 
@@ -123,16 +147,21 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         item.getItemId();
 
         if(item.getItemId() == R.id.miComposeTweet){
-            //ShowComposeTweet();
-            FragmentManager fm = getSupportFragmentManager();
-            ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance();
-            composeTweetFragment.setStyle( DialogFragment.STYLE_NORMAL, R.style.AppBaseTheme );// fragment fullscreen
-            composeTweetFragment.show(fm, "tweetFrag");
+
+            ShowComposeTWeet();
+
         }
         if (item.getItemId() == android.R.id.home) {
             finish(); // close this activity and return to preview activity (if there is any)
         }
         return  true;
+    }
+
+    private void ShowComposeTWeet() {
+        FragmentManager fm = getSupportFragmentManager();
+        ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance();
+        composeTweetFragment.setStyle( DialogFragment.STYLE_NORMAL, R.style.AppBaseTheme );// fragment fullscreen
+        composeTweetFragment.show(fm, "tweetFrag");
     }
 
     private void populateTimeline(long max_id, final Boolean loadOldTweets) {
@@ -154,7 +183,8 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
                             e.printStackTrace();
                         }
                 }
-
+                // Now we call setRefreshing(false) to signal refresh has finished
+                swipeContainer.setRefreshing(false);
                 Log.d("TwitterClient", response.toString());
             }
             @Override
@@ -180,5 +210,9 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         tweetAdapter.notifyItemInserted(0);
         rvTweets.getLayoutManager().scrollToPosition(0);
         Log.d("New Tweet",newTweet.getText());
+    }
+
+    public void onComposeAction(View v) {
+        ShowComposeTWeet();
     }
 }

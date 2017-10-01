@@ -8,6 +8,7 @@ android {
         applicationId "com.codepath.apps.restclienttemplate"
         minSdkVersion 17
         targetSdkVersion 25
+        vectorDrawables.useSupportLibrary = true
     }
 
     // Related to https://github.com/scribejava/scribejava/issues/480
@@ -50,4 +51,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.android.support:support-v4:25.3.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.android.support:design:25.3.1'
 }

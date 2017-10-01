@@ -170,4 +170,17 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             this.mTweets.clear();
             notifyItemRangeRemoved(0, size);
     }
+
+    // Clean all elements of the recycler
+//    public void clear() {
+//        items.clear();
+//        notifyDataSetChanged();
+//    }
+
+//    // Add a list of items -- change to type used
+//    public void addAll(List<Tweet> list) {
+//        items.addAll(list);
+//        notifyDataSetChanged();
+//    }
+
 }
