@@ -84,6 +84,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="5dp"
         android:text="Tweet"
+        android:textAllCaps="false"
+        android:textColor="@color/secondary_white"
         android:background="@color/primary"/>
 
 

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +47,7 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
     @BindView(R.id.etTweetMssg)EditText etTweetMessage;
     @BindView(R.id.ivProfileImageCompose)ImageView ivProfileImage;
     @BindView(R.id.btnTweet)Button btnTweet;
+    @BindView(R.id.tvWordCounter)TextView wordCounter;
     @BindView(R.id.ivComposeCancel)ImageButton btnCancel;
     TwitterClient client;
     User user;
@@ -105,6 +108,28 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
                 Log.d("User",responseString);
             }
         });
+
+
+    }
+
+    private void SetupTextChangedHandler() {
+
+
+        final TextWatcher txwatcher = new TextWatcher() {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                wordCounter.setText(String.valueOf(s.length()) + "/140");
+
+            }
+
+            public void afterTextChanged(Editable s) {
+            }
+        };
+
+        etTweetMessage.addTextChangedListener(txwatcher);
     }
 
     @Override
@@ -112,7 +137,7 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_compose_tweet, container);
         ButterKnife.bind(this,view);
-
+        SetupTextChangedHandler();
         return view;
 
     }
