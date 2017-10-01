@@ -105,12 +105,18 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         TextView tvContent = holder.getTweetContent();
         TextView tvCreateAt =  holder.getTweetCreatedAt();
         ImageView ivProfileImage =  holder.getTweetProfileImage();
+        ImageView ivVerifiedUser = holder.getIvVerifiedUserPlain();
 
         tvName.setText(tweet.getUser().getName());
         tvUserName.setText("@" + tweet.getUser().getScreenName());
         tvContent.setText(tweet.getText());
         String parseDateTime = CommonUtils.getRelativeTimeAgo(tweet.getCreatedAt());
         tvCreateAt.setText(parseDateTime);
+
+        Boolean verified = tweet.getUser().getVerified();
+        if(verified) {
+            ivVerifiedUser.setVisibility(View.VISIBLE);
+        }
 
         String imgUrl = tweet.getUser().getProfileImageUrl();
 
