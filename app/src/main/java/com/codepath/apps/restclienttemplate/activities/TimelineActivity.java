@@ -100,7 +100,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         client.getHomeTimeline(new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.d("Twitterclient", response.toString());
+                Log.d("TimeLine", response.toString());
             }
 
             @Override
@@ -111,7 +111,6 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
                         Tweet tweet = Tweet.parseJson(response.getJSONObject(i));
                         tweets.add(tweet);
                         tweetAdapter.notifyItemInserted(tweets.size()-1);
-                        Log.d("response", response.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -138,10 +137,10 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
     }
 
     @Override
-    public void onPostTweetMessage(Tweet newTweet) {
+    public void onPostNewTweet(Tweet newTweet) {
         tweets.add(0, newTweet);
         tweetAdapter.notifyItemInserted(0);
         rvTweets.getLayoutManager().scrollToPosition(0);
-        Log.d("TWeet",newTweet.getText().toString());
+        Log.d("New Tweet",newTweet.getText());
     }
 }

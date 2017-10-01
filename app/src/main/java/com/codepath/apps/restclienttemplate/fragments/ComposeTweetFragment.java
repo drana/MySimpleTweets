@@ -63,8 +63,6 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client = TwitterApp.getRestClient();
-
-
         client.verify_credentials(new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -84,27 +82,27 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.d("Twitterclient", response.toString());
+                Log.d("User", response.toString());
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                Log.d("TwitterClient", response.toString());
+                Log.d("User", response.toString());
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.d("TwitterClient",errorResponse.toString());
+                Log.d("User",errorResponse.toString());
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                Log.d("TwitterClient",errorResponse.toString());
+                Log.d("User",errorResponse.toString());
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d("TwitterClient",responseString);
+                Log.d("User",responseString);
             }
         });
     }
@@ -146,7 +144,7 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
 
         switch (view.getId()){
             case R.id.btnTweet:
-                OnTweetMssg();
+                OnTweetBtnClicked();
                 break;
             case R.id.ivComposeCancel:
                 OnCancel();
@@ -159,14 +157,10 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
 
     private void OnCancel() {
         dismiss();
-        Log.d("btn","cancel clicked");
+        Log.d("New Tweet","Cancelled!");
     }
 
-    private void OnTweetMssg() {
-
-        //Tweet newTweet = new Tweet();
-        //newTweet.setText(etTweetMessage.getText().toString());
-        //newTweet.setUser(user);
+    private void OnTweetBtnClicked() {
         client = TwitterApp.getRestClient();
 
         //post the new tweet
@@ -177,7 +171,8 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
                     Tweet newTweet = Tweet.parseJson(response);
                     dismiss();
                     TweetDialogListener mListener = (TweetDialogListener) getActivity();
-                    mListener.onPostTweetMessage(newTweet);
+                    mListener.onPostNewTweet(newTweet);
+                    Log.d("New Tweet","tweet send to activity");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -192,21 +187,24 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
+                Log.d("Failed Tweet", errorResponse.toString());
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
+                Log.d("Failed Tweet", errorResponse.toString());
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
+                Log.d("Failed Tweet", responseString);
             }
         });
 
 
-        Log.d("btn","save clicked");
+        Log.d("New Tweet","new twee posted");
     }
 
 
@@ -217,6 +215,6 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
 
     //interface for passing filters back to activity
     public interface TweetDialogListener{
-        void onPostTweetMessage(Tweet tweet);
+        void onPostNewTweet(Tweet tweet);
     }
 }
