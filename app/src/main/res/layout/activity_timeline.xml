@@ -9,15 +9,15 @@
     tools:context="com.codepath.apps.restclienttemplate.activities.TimelineActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:minHeight="?attr/actionBarSize"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp"
-        app:titleTextColor="@color/secondary_white"
-        android:background="@color/primary">
-    </android.support.v7.widget.Toolbar>
+    android:id="@+id/toolbar"
+    android:minHeight="?attr/actionBarSize"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp"
+    app:titleTextColor="@color/secondary_white"
+    android:background="@color/primary">
+</android.support.v7.widget.Toolbar>
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/main_content"
@@ -25,6 +25,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
 
             <android.support.v4.widget.SwipeRefreshLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,14 +37,15 @@
                 <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvTweets"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="498dp"/>
+
         </android.support.v4.widget.SwipeRefreshLayout>
 
             <android.support.design.widget.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
-                android:layout_margin="15dp"
+                android:layout_margin="10dp"
                 app:srcCompat="@drawable/tweet"
                 app:layout_anchor="@+id/swipeContainer"
                 app:backgroundTint="@color/primary"

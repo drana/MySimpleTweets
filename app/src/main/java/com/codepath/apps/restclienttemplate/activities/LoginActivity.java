@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
@@ -10,12 +11,20 @@ import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
+
+	@BindView(R.id.toolbar)Toolbar toolbar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		ButterKnife.bind(this);
+		//set toolbar as actionbar for this activity
+		ApplyToolBarStyle();
 	}
 
 
@@ -47,6 +56,14 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	// This should be tied to a button used to login
 	public void loginToRest(View view) {
 		getClient().connect();
+	}
+
+	//set toolbar as actionbar for this activity
+	private void ApplyToolBarStyle() {
+		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
+		getSupportActionBar().setLogo(R.drawable.twitter_logo);
+		getSupportActionBar().setDisplayUseLogoEnabled(true);
 	}
 
 }

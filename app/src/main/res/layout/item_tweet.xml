@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
 
     <ImageView
         android:id="@+id/ivProfleImage"
@@ -11,60 +12,62 @@
         app:srcCompat="@drawable/placeholder"
         android:layout_alignTop="@+id/tvName"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="14dp" />
+        android:layout_marginStart="15dp" />
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
         android:text="TextView"
-        android:layout_marginTop="20dp"
+        android:textColor="@color/secondary_black"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/ivProfleImage"
-        android:layout_marginStart="15dp" />
+        android:layout_toEndOf="@+id/ivProfleImage" />
 
     <TextView
         android:id="@+id/tvUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
         android:text="TextView"
-        android:layout_below="@+id/tvName"
-        android:layout_alignStart="@+id/tvName" />
+        android:textColor="@color/secondary_dark_gray"
+        android:layout_below="@id/tvName"
+        android:layout_toEndOf="@id/ivProfleImage"/>
 
-    <ImageView
-        android:id="@+id/ivLogo"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        app:srcCompat="@drawable/twitter_logo_blue"
-        android:layout_alignTop="@+id/tvName"
+    <TextView
+        android:id="@+id/tvCreatedAt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/secondary_dark_gray"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/tvTweetContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:ellipsize="end"
+        android:maxLines="3"
         android:text="TextView"
-        android:layout_below="@+id/ivProfleImage"
-        android:layout_alignStart="@+id/ivProfleImage"
-        android:layout_toStartOf="@+id/ivLogo" />
+        android:textColor="@color/secondary_black"
+        android:autoLink="web"
+        android:textColorLink="@color/primary"
+        android:layout_alignStart="@+id/tvName"
+        android:layout_below="@+id/ivProfleImage" />
+
 
     <ImageView
         android:id="@+id/ivURLImage"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="210dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tvTweetContent"
-        android:layout_marginTop="15dp"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="20dp"
         app:srcCompat="@drawable/placeholder" />
 
-    <TextView
-        android:id="@+id/tvCreatedAt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvName"
-        android:layout_marginEnd="12dp"
-        android:layout_toStartOf="@+id/ivLogo"
-        android:text="TextView" />
+
 </RelativeLayout>
