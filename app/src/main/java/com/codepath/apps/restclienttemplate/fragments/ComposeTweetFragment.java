@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -127,6 +128,7 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
         tvUserName.setTypeface(regularFont);
         etTweetMessage.setTypeface(regularFont);
         getDialog().getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 
     @Override
@@ -162,13 +164,47 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
 
     private void OnTweetMssg() {
 
-        Tweet tweet = new Tweet();
-        tweet.setText(etTweetMessage.getText().toString());
-        //tweet.getUser().setName(tvName.getText().toString());
+        //Tweet newTweet = new Tweet();
+        //newTweet.setText(etTweetMessage.getText().toString());
+        //newTweet.setUser(user);
+        client = TwitterApp.getRestClient();
 
-        dismiss();
-        TweetDialogListener mListener = (TweetDialogListener) getActivity();
-        mListener.onSendTweetMessage(tweet);
+        //post the new tweet
+        client.postNewTweet(etTweetMessage.getText().toString(),new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    Tweet newTweet = Tweet.parseJson(response);
+                    dismiss();
+                    TweetDialogListener mListener = (TweetDialogListener) getActivity();
+                    mListener.onPostTweetMessage(newTweet);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
+
 
         Log.d("btn","save clicked");
     }
@@ -181,6 +217,6 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
 
     //interface for passing filters back to activity
     public interface TweetDialogListener{
-        void onSendTweetMessage(Tweet tweet);
+        void onPostTweetMessage(Tweet tweet);
     }
 }

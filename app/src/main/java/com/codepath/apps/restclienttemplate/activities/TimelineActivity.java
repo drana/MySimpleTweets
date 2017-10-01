@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApp;
@@ -95,48 +96,6 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         return  true;
     }
 
-    private void ShowComposeTweet() {
-        client.verify_credentials(new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.d("Twitterclient", response.toString());
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-
-                for(int i =0; i< response.length();i++){
-                    try {
-                        Tweet tweet = Tweet.parseJson(response.getJSONObject(i));
-                        //tweets.add(tweet);
-                        //tweetAdapter.notifyItemInserted(tweets.size()-1);
-                        Log.d("response", response.toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                Log.d("TwitterClient", response.toString());
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.d("TwitterClient",errorResponse.toString());
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                Log.d("TwitterClient",errorResponse.toString());
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d("TwitterClient",responseString);
-            }
-        });
-    }
-
-
     private void populateTimeline() {
         client.getHomeTimeline(new JsonHttpResponseHandler(){
             @Override
@@ -179,8 +138,10 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
     }
 
     @Override
-    public void onSendTweetMessage(Tweet tweetMssg) {
-        String msg = tweetMssg.getText();
-        Log.d("TWeet",tweetMssg.getText().toString());
+    public void onPostTweetMessage(Tweet newTweet) {
+        tweets.add(0, newTweet);
+        tweetAdapter.notifyItemInserted(0);
+        rvTweets.getLayoutManager().scrollToPosition(0);
+        Log.d("TWeet",newTweet.getText().toString());
     }
 }
