@@ -22,12 +22,14 @@ import com.codepath.apps.restclienttemplate.adapters.TweetAdapter;
 import com.codepath.apps.restclienttemplate.fragments.ComposeTweetFragment;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
+import com.codepath.apps.restclienttemplate.utils.EndlessRecyclerViewScrollListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -42,6 +44,8 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
     TwitterClient client;
     ArrayList<Tweet> tweets;
     TweetAdapter tweetAdapter;
+    EndlessRecyclerViewScrollListener scrollListener;
+    LinearLayoutManager linearLayoutManager;
 
 
     @Override
@@ -54,11 +58,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         ButterKnife.bind(this);
 
         //set toolbar as actionbar for this activity
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.twitter_logo);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-
+        ApplyToolBarStyle();
 
         //initialize data source
         tweets = new ArrayList<>();
@@ -66,11 +66,50 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         tweetAdapter= new TweetAdapter(this,tweets);
         //set adapter and layout manager
         rvTweets.setAdapter(tweetAdapter);
-        rvTweets.setLayoutManager(new LinearLayoutManager(this));
+        linearLayoutManager = new LinearLayoutManager(this);
+        rvTweets.setLayoutManager(linearLayoutManager);
 
+        //Setup scrolllistener
+        SetupScrollListener();
 
+        //populateTimeline();
+        LoadTweetsTimeline(false);
+    }
 
-        populateTimeline();
+    private void SetupScrollListener() {
+        // Retain an instance so that you can call `resetState()` for fresh searches
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                                    LoadTweetsTimeline(true);
+            }
+        };
+
+        // Adds the scroll listener to RecyclerView
+        rvTweets.addOnScrollListener(scrollListener);
+    }
+
+    //get timeline whether its from scrolling or loading home page.
+    private void LoadTweetsTimeline(boolean loadOldTweets) {
+
+        long max_id;
+        if(loadOldTweets){
+            max_id = tweetAdapter.getTweetAt(tweetAdapter.getItemCount() - 1).getId();
+            max_id--;//
+            Log.d("Scroll", Long.toString(max_id));
+        }
+        else{
+            max_id = -1;
+        }
+
+        populateTimeline(max_id,loadOldTweets);
+    }
+
+    private void ApplyToolBarStyle() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.twitter_logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
     }
 
     @Override
@@ -96,29 +135,28 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         return  true;
     }
 
-    private void populateTimeline() {
-        client.getHomeTimeline(new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.d("TimeLine", response.toString());
-            }
+    private void populateTimeline(long max_id, final Boolean loadOldTweets) {
+
+        client.getHomeTimeline(max_id, new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 
+                if(!loadOldTweets){
+                    tweetAdapter.RemoveTweets();
+                }
                 for(int i =0; i< response.length();i++){
-                    try {
-                        Tweet tweet = Tweet.parseJson(response.getJSONObject(i));
-                        tweets.add(tweet);
-                        tweetAdapter.notifyItemInserted(tweets.size()-1);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                        try {
+                            Tweet tweet = Tweet.parseJson(response.getJSONObject(i));
+                            tweets.add(tweet);
+                            tweetAdapter.notifyItemInserted(tweets.size()-1);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                 }
 
                 Log.d("TwitterClient", response.toString());
             }
-
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Log.d("TwitterClient",errorResponse.toString());

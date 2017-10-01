@@ -23,19 +23,19 @@ import java.util.ArrayList;
 
 public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context mContext;
-    ArrayList<Tweet> mTweet = new ArrayList<Tweet>();
+    ArrayList<Tweet> mTweets = new ArrayList<Tweet>();
 
     //constructor
     public TweetAdapter(Context context, ArrayList<Tweet> tweets){
 
         mContext = context;
-        mTweet = tweets;
+        mTweets = tweets;
     }
 
     @Override
     public int getItemViewType(int position) {
 
-        Tweet tweet = mTweet.get(position);
+        Tweet tweet = mTweets.get(position);
         // check if tweet has image or no image and load item_tweet accoordingly
         if(tweet.getUrls()!=null)
         return CommonUtils.TWEET_IMAGE;
@@ -94,7 +94,7 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private void BindItemWithNoImage(TweetItemNoImage holder, int position) {
 
         // Get the data model based on position
-        Tweet tweet = mTweet.get(position);
+        Tweet tweet = mTweets.get(position);
         TextView tvName = holder.getTweetName();
         TextView tvUserName = holder.getTweetUserName();
         TextView tvContent = holder.getTweetContent();
@@ -120,7 +120,7 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private void BindItemWithImage(TweetItem holder, int position) {
 
-        Tweet tweet = mTweet.get(position);
+        Tweet tweet = mTweets.get(position);
         TextView tvName = holder.getTweetName();
         TextView tvUserName = holder.getTweetUserName();
         TextView tvContent = holder.getTweetContent();
@@ -156,8 +156,18 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return mTweet.size();
+        return mTweets.size();
     }
 
 
+    //get item at position
+    public Tweet getTweetAt(int position) {
+        return this.mTweets.get(position);
+    }
+
+    public void RemoveTweets() {
+            int size = this.mTweets.size();
+            this.mTweets.clear();
+            notifyItemRangeRemoved(0, size);
+    }
 }
