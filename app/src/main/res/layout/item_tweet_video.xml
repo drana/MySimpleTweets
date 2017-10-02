@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <ImageView
+        android:id="@+id/ivProfleImageVV"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/placeholder"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/tvNameVV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:text="TextView"
+        android:textColor="@color/secondary_black"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/ivProfleImageVV" />
+
+    <ImageView
+        android:id="@+id/ivVerifiedUserVV"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="3dp"
+        android:src="@drawable/ic_verified_badge"
+        android:layout_toRightOf="@id/tvNameVV"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/tvUserNameVV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:text="TextView"
+        android:textColor="@color/secondary_dark_gray"
+        android:layout_below="@id/tvNameVV"
+        android:layout_toEndOf="@id/ivProfleImageVV"/>
+
+    <TextView
+        android:id="@+id/tvCreatedAtVV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/secondary_dark_gray"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/tvTweetContentVV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="TextView"
+        android:textColor="@color/secondary_black"
+        android:autoLink="web"
+        android:textColorLink="@color/primary"
+        android:layout_below="@+id/tvUserNameVV"
+        android:layout_alignStart="@+id/tvUserNameVV" />
+
+
+    <VideoView
+        android:id="@+id/vvTweetVideo"
+        android:layout_width="320dp"
+        android:layout_height="240dp"
+        android:layout_below="@+id/ivProfleImageVV"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>

@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -25,7 +26,9 @@ import com.codepath.apps.restclienttemplate.adapters.TweetAdapter;
 import com.codepath.apps.restclienttemplate.fragments.ComposeTweetFragment;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
+import com.codepath.apps.restclienttemplate.utils.CommonUtils;
 import com.codepath.apps.restclienttemplate.utils.EndlessRecyclerViewScrollListener;
+import com.codepath.apps.restclienttemplate.utils.ItemClickSupport;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -81,6 +84,9 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         //swipe action listner
         SetupSwipeListner();
 
+        //on an article click event
+        SetupListViewCLickListener();
+
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         rvTweets.addItemDecoration(itemDecoration);
 
@@ -114,6 +120,33 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
 
         // Adds the scroll listener to RecyclerView
         rvTweets.addOnScrollListener(scrollListener);
+    }
+
+    //attach listeners for article items
+    private void SetupListViewCLickListener() {
+
+        ItemClickSupport.addTo(rvTweets).setOnItemClickListener(
+                new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        // do it
+                        Tweet details = tweets.get(position);
+
+                        PackageManager pm = getApplicationContext().getPackageManager();
+                        boolean isInstalled = CommonUtils.isPackageInstalled("com.android.chrome", pm);
+                        //if chrome installed start chrome else use webview
+                        if(isInstalled) {
+                            //SetupChromeWebView(details.getWebUrl());
+                        }
+                        else{
+//                            Intent intent = new Intent(SearchActivity.this,ArticleDetailsActivity.class);
+//                            intent.putExtra("ARTICLE_WEB_URL", details.getWebUrl());
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                            startActivity(intent);
+                        }
+                    }
+                }
+        );
     }
 
     //get timeline whether its from scrolling or loading home page.
@@ -218,4 +251,6 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
     public void onComposeAction(View v) {
         ShowComposeTWeet();
     }
+
+
 }
