@@ -2,27 +2,23 @@ package com.codepath.apps.restclienttemplate.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 
-import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApp;
-import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
-import com.codepath.apps.restclienttemplate.utils.EndlessRecyclerViewScrollListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
 /**
- * Created by dipenrana on 10/3/17.
+ * Created by dipenrana on 10/4/17.
  */
 
-public class HomeTimelineFragment extends TweetsListFragment {
+public class UserTimelineFragment extends TweetsListFragment {
+    
     TwitterClient client;
 
 
@@ -31,32 +27,26 @@ public class HomeTimelineFragment extends TweetsListFragment {
         super.onCreate(savedInstanceState);
         client = TwitterApp.getRestClient();
         Log.d("HomeTimelineFragment", "Before LoadTweetsTimeline()");
-        
+
         //populate timeline on creating the view.
-        LoadTweetsTimeline(false);
+        populateTimeline(false);
         Log.d("HomeTimelineFragment", "After LoadTweetsTimeline()");
     }
 
-    //get timeline whether its from scrolling or loading home page.
-    private void LoadTweetsTimeline(boolean loadOldTweets) {
+    public static UserTimelineFragment newInstance(String screenname){
+        UserTimelineFragment fragment = new UserTimelineFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("screen_name",screenname);
+        fragment.setArguments(bundle);
 
-        long max_id;
-        if(loadOldTweets){
-            max_id = tweetAdapter.getTweetAt(tweetAdapter.getItemCount() - 1).getId();
-            max_id--;//
-            Log.d("Scroll", Long.toString(max_id));
-        }
-        else{
-            max_id = -1;
-        }
-
-        populateTimeline(max_id,loadOldTweets);
+        return  fragment;
     }
 
-    private void populateTimeline(long max_id, final Boolean loadOldTweets) {
+    private void populateTimeline(final Boolean loadOldTweets) {
+        String screen_name = getArguments().getString("screen_name");
 
-        client.getHomeTimeline(max_id, new JsonHttpResponseHandler(){
-
+        //get usertimeline from twitter client
+        client.getUserTimeline(screen_name, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 
@@ -86,9 +76,4 @@ public class HomeTimelineFragment extends TweetsListFragment {
             }
         });
     }
-
-
-
-
-
 }
