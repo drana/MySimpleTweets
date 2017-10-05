@@ -6,6 +6,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.format.DateUtils;
 
+import com.codepath.apps.restclienttemplate.R;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -69,5 +71,6 @@ public class CommonUtils {
             return false;
         }
     }
+
 
 }

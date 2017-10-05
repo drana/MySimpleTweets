@@ -9,7 +9,7 @@
         android:title="Compose">
     </item>
     <item
-        android:id="@+id/miProfile1"
+        android:id="@+id/miProfile"
         android:icon="@drawable/ic_person"
         app:showAsAction="ifRoom"
         android:title="Profile1">

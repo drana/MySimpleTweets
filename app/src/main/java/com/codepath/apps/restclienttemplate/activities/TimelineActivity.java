@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate.activities;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -21,6 +22,8 @@ import com.codepath.apps.restclienttemplate.fragments.ComposeTweetFragment;
 import com.codepath.apps.restclienttemplate.fragments.TweetsListFragment;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
+
+import java.sql.Time;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,14 +77,21 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         item.getItemId();
 
         if(item.getItemId() == R.id.miComposeTweet){
-
             ShowComposeTWeet();
-
         }
-        if (item.getItemId() == android.R.id.home) {
+        else if (item.getItemId() == android.R.id.home) {
             finish(); // close this activity and return to preview activity (if there is any)
         }
+        else if (item.getItemId() == R.id.miProfile){
+            ShowProfileActivity();
+        }
+
         return  true;
+    }
+
+    private void ShowProfileActivity() {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
     }
 
     private void ShowComposeTWeet() {
