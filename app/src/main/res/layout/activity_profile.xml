@@ -6,22 +6,80 @@
     android:layout_height="match_parent"
     tools:context="com.codepath.apps.restclienttemplate.activities.ProfileActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:minHeight="?attr/actionBarSize"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp"
-        app:titleTextColor="@color/secondary_white"
-        android:background="@color/primary">
-    </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
         android:id="@+id/rlUserHeader"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@+id/toolbar" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp">
+        <ImageView
+            android:id="@+id/ivProfileBanner"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/placeholder"/>
+
+        <ImageView
+            android:id="@+id/ivProfileImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/ivProfileBanner"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/placeholder"/>
+
+        <TextView
+            android:id="@+id/tvProfileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:text="Dipen"
+            android:layout_toRightOf="@id/ivProfileImage"
+            android:layout_below="@+id/ivProfileBanner"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/tvProfileScreenName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:text="\@dipen"
+            android:textColor="@color/secondary_dark_gray"
+            android:layout_below="@+id/tvProfileName"
+            android:layout_toEndOf="@+id/ivProfileImage" />
+
+        <TextView
+            android:id="@+id/tvProfileDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp"
+            android:text="TagLine"
+            android:textColor="@color/secondary_dark_gray"
+            android:layout_below="@+id/tvProfileScreenName"
+            android:layout_toEndOf="@+id/ivProfileImage"/>
+
+        <TextView
+            android:id="@+id/tvFollowing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 Following"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/secondary_dark_gray"
+            android:layout_below="@+id/ivProfileImage"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/tvFollowers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="3dp"
+            android:text="0 Followers"
+            android:textColor="@color/secondary_dark_gray"
+            android:layout_below="@+id/ivProfileImage"
+            android:layout_toEndOf="@+id/tvFollowing" />
+
+
+    </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/flPlaceHolder"

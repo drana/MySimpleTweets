@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 public class User implements Parcelable{
 
+
     @SerializedName("id")
     @Expose
     private long id;
@@ -33,6 +34,20 @@ public class User implements Parcelable{
     @SerializedName("verified")
     @Expose
     private Boolean verified;
+    @SerializedName("description")
+    @Expose
+    private String description;
+    @SerializedName("followers_count")
+    @Expose
+    private Integer followersCount;
+    @SerializedName("friends_count")
+    @Expose
+    private Integer friendsCount;
+    @SerializedName("profile_banner_url")
+    @Expose
+    private String profileBannerUrl;
+
+
 
     //constructor
     public User(){
@@ -77,6 +92,38 @@ public class User implements Parcelable{
 
     public void setVerified(Boolean verified) {
         this.verified = verified;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getFollowersCount() {
+        return followersCount;
+    }
+
+    public void setFollowersCount(Integer followersCount) {
+        this.followersCount = followersCount;
+    }
+
+    public Integer getFriendsCount() {
+        return friendsCount;
+    }
+
+    public void setFriendsCount(Integer friendsCount) {
+        this.friendsCount = friendsCount;
+    }
+
+    public String getProfileBannerUrl() {
+        return profileBannerUrl;
+    }
+
+    public void setProfileBannerUrl(String profileBannerUrl) {
+        this.profileBannerUrl = profileBannerUrl;
     }
 
 

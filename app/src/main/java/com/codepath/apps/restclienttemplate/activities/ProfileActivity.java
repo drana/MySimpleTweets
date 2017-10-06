@@ -13,15 +13,13 @@ import butterknife.ButterKnife;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar)Toolbar toolbar;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        ButterKnife.bind(this);
-        ApplyToolBarStyle();
 
         //creat user fragment
 
@@ -34,10 +32,4 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    private void ApplyToolBarStyle() {
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.twitter_logo);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-    }
 }

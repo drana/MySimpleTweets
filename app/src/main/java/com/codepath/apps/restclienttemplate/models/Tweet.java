@@ -20,6 +20,7 @@ import java.util.List;
  * Created by dipenrana on 9/26/17.
  */
 
+
 public class Tweet implements Parcelable{
 
     @SerializedName("created_at")
@@ -45,14 +46,10 @@ public class Tweet implements Parcelable{
     private ExtendedEntities extendedEntities;
 
 
-
-
-
     protected Tweet(Parcel in) {
         createdAt = in.readString();
         text = in.readString();
         id = in.readInt();
-
 
     }
 

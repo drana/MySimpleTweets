@@ -28,7 +28,7 @@ import java.sql.Time;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TimelineActivity extends AppCompatActivity implements ComposeTweetFragment.TweetDialogListener{
+public class TimelineActivity extends AppCompatActivity implements ComposeTweetFragment.TweetDialogListener,TweetsListFragment.TweetSelectedListener{
 
 
     @BindView(R.id.toolbar)Toolbar toolbar;
@@ -111,5 +111,8 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
     }
 
 
-
+    @Override
+    public void onTweetSelected(Tweet tweet) {
+        Log.d("Clicked",tweet.getText());
+    }
 }

@@ -39,6 +39,10 @@ public class TweetsListFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
     EndlessRecyclerViewScrollListener scrollListener;
 
+    public interface TweetSelectedListener{
+        public void onTweetSelected(Tweet tweet);
+    }
+
     public TweetsListFragment() {
         // Required empty public constructor
     }
@@ -127,6 +131,7 @@ public class TweetsListFragment extends Fragment {
                                                                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
 
                                                                         Tweet tweet = tweets.get(position);
+                                                                        ((TweetSelectedListener)getActivity()).onTweetSelected(tweet);
                                                                         Log.d("It worked",Integer.toString(position));
 
                                                                     }
