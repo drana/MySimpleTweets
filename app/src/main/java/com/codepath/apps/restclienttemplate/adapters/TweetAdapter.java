@@ -1,6 +1,8 @@
 package com.codepath.apps.restclienttemplate.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.Image;
 import android.media.session.MediaController;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +21,7 @@ import com.codepath.apps.restclienttemplate.activities.TweetItemNoImage;
 import com.codepath.apps.restclienttemplate.activities.TweetItemVideo;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.utils.CommonUtils;
+import com.codepath.apps.restclienttemplate.utils.ItemClickSupport;
 
 import java.util.ArrayList;
 
@@ -96,14 +99,14 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 viewHolder = new TweetItem(v);
                 break;
         }
+
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-//        TweetItemNoImage vh1 = (TweetItemNoImage) holder;
-//        BindItemWithNoImage(vh1,position);
+        //holder.bind(mTweets.get(position),mListener);
 
         switch (holder.getItemViewType()) {
             case CommonUtils.TWEET_IMAGE:
@@ -122,7 +125,6 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 TweetItem vh = (TweetItem) holder;
                 break;
         }
-
     }
 
     private void BindItemWithVideo(TweetItemVideo holder, int position) {
@@ -158,6 +160,7 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 .error(R.drawable.placeholder).into(ivProfileImage);
 
         ivTweetVideo.setVideoPath("http://techslides.com/demos/sample-videos/small.mp4");
+
 
 
 
@@ -240,7 +243,6 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public int getItemCount() {
         return mTweets.size();
     }
-
 
     //get item at position
     public Tweet getTweetAt(int position) {

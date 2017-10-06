@@ -16,6 +16,7 @@ import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.adapters.TweetAdapter;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.utils.EndlessRecyclerViewScrollListener;
+import com.codepath.apps.restclienttemplate.utils.ItemClickSupport;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,6 +65,8 @@ public class TweetsListFragment extends Fragment {
         SetupSwipeListner();
         //Setup scrolllistener
         SetupScrollListener();
+
+        SetupClickListener();
 
         Log.d("TweetListFragment", "OnCreatView()");
 
@@ -114,6 +117,22 @@ public class TweetsListFragment extends Fragment {
         // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(R.color.primary);
 
+
+    }
+
+    private void SetupClickListener(){
+        //ItemClickSupport.addTo(rvArticleItems).setOnItemClickListener
+        ItemClickSupport.addTo(rvTweets).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                                                                    @Override
+                                                                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+
+                                                                        Tweet tweet = tweets.get(position);
+                                                                        Log.d("It worked",Integer.toString(position));
+
+                                                                    }
+                                                                }
+
+        );
 
     }
 
