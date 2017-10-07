@@ -65,14 +65,11 @@ public abstract class TweetsListFragment extends Fragment {
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         rvTweets.addItemDecoration(itemDecoration);
 
-        //swipe action listner
-        SetupSwipeListner();
-        //Setup scrolllistener
+        //swipe action listener
+        SetupSwipeListener();
+        //Setup scroll listener
         SetupScrollListener();
-
-        // Adds the scroll listener to RecyclerView
-        //rvTweets.addOnScrollListener(scrollListener);
-
+        //setup click listener
         SetupClickListener();
 
         Log.d("TweetListFragment", "OnCreatView()");
@@ -112,7 +109,7 @@ public abstract class TweetsListFragment extends Fragment {
         rvTweets.addOnScrollListener(scrollListener);
     }
 
-    private void SetupSwipeListner() {
+    private void SetupSwipeListener() {
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -120,7 +117,7 @@ public abstract class TweetsListFragment extends Fragment {
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
-                //LoadTweetsTimeline(false);
+                LoadTweetsTimeline(false);
             }
         });
         // Configure the refreshing colors
@@ -130,7 +127,7 @@ public abstract class TweetsListFragment extends Fragment {
     }
 
     private void SetupClickListener(){
-        //ItemClickSupport.addTo(rvArticleItems).setOnItemClickListener
+
         ItemClickSupport.addTo(rvTweets).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                                                                     @Override
                                                                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {

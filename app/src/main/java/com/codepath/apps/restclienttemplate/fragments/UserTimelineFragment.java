@@ -32,6 +32,7 @@ public class UserTimelineFragment extends TweetsListFragment {
 
         //populate timeline on creating the view.
         populateTimeline(false);
+
         Log.d("UserTimelineFragment", "After LoadTweetsTimeline()");
     }
 

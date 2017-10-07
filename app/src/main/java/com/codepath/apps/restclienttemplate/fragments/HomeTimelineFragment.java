@@ -42,7 +42,6 @@ public class HomeTimelineFragment extends TweetsListFragment {
 
     //get timeline whether its from scrolling or loading home page.
     protected void LoadTweetsTimeline(boolean loadOldTweets) {
-
         long max_id;
         if(loadOldTweets){
             max_id = tweetAdapter.getTweetAt(tweetAdapter.getItemCount() - 1).getId();
@@ -59,7 +58,6 @@ public class HomeTimelineFragment extends TweetsListFragment {
     private void populateTimeline(long max_id, final Boolean loadOldTweets) {
 
         client.getHomeTimeline(max_id, new JsonHttpResponseHandler(){
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 
@@ -70,7 +68,7 @@ public class HomeTimelineFragment extends TweetsListFragment {
                 addItems(response);
                 Log.d("HomeTimeline", "addItems()");
                 // Now we call setRefreshing(false) to signal refresh has finished
-                //swipeContainer.setRefreshing(false);
+                swipeContainer.setRefreshing(false);
                 //Log.d("TwitterClient", response.toString());
             }
             @Override

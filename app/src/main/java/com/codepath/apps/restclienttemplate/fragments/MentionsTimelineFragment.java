@@ -63,7 +63,7 @@ public class MentionsTimelineFragment extends TweetsListFragment {
                 addItems(response);
                 Log.d("HomeTimeline", "addItems()");
                 // Now we call setRefreshing(false) to signal refresh has finished
-                //swipeContainer.setRefreshing(false);
+                swipeContainer.setRefreshing(false);
                 //Log.d("TwitterClient", response.toString());
             }
             @Override

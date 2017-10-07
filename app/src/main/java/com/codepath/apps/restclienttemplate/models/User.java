@@ -47,9 +47,9 @@ public class User implements Parcelable{
     @Expose
     private String profileBannerUrl;
 
+    //region get & set
 
-
-    //constructor
+    //Constructor
     public User(){
 
     }
@@ -126,6 +126,7 @@ public class User implements Parcelable{
         this.profileBannerUrl = profileBannerUrl;
     }
 
+    //endregion
 
     protected User(Parcel in) {
         name = in.readString();
@@ -134,6 +135,8 @@ public class User implements Parcelable{
         profileImageUrl = in.readString();
         profileBannerUrl = in.readString();
         verified = in.readByte() != 0;
+        followersCount = in.readInt();
+        friendsCount = in.readInt();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -161,6 +164,8 @@ public class User implements Parcelable{
         parcel.writeString(profileImageUrl);
         parcel.writeString(profileBannerUrl);
         parcel.writeByte((byte) (verified ? 1 : 0));
+        parcel.writeInt(followersCount);
+        parcel.writeInt(friendsCount);
     }
 
     public static User getUserfromJSON(JSONObject jsonObject) throws JSONException {

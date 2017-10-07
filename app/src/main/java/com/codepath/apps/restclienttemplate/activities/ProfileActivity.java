@@ -12,7 +12,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApp;
+import com.codepath.apps.restclienttemplate.fragments.TweetsListFragment;
 import com.codepath.apps.restclienttemplate.fragments.UserTimelineFragment;
+import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.models.User;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -26,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements TweetsListFragment.TweetSelectedListener{
 
 
     TwitterClient client;
@@ -57,13 +59,12 @@ public class ProfileActivity extends AppCompatActivity {
         client = TwitterApp.getRestClient();
 
         User userObject = (User) getIntent().getParcelableExtra("USER");
-        if(userObject != null && userObject.getScreenName() != null) {
+        if (userObject != null && userObject.getScreenName() != null) {
             screenName = userObject.getScreenName();
             PopulateUserProfile(userObject);
-        }else{
+        } else {
             ShowPersonalProfile();
         }
-
 
 
         //final UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(userObject.getScreenName());
@@ -71,21 +72,21 @@ public class ProfileActivity extends AppCompatActivity {
         //create and replace placeholder with fragment
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.flPlaceHolder,userTimelineFragment);
+        ft.replace(R.id.flPlaceHolder, userTimelineFragment);
         ft.commit();
 
     }
 
-    private void ShowPersonalProfile(){
+    private void ShowPersonalProfile() {
 
-        client.getUserInfo(new JsonHttpResponseHandler(){
+        client.getUserInfo(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
-                    User user  = User.getUserfromJSON(response);
+                    User user = User.getUserfromJSON(response);
                     PopulateUserProfile(user);
 
-                    Log.d("User",user.toString());
+                    Log.d("User", user.toString());
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -95,30 +96,34 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.d("User",errorResponse.toString());
+                Log.d("User", errorResponse.toString());
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                Log.d("User",errorResponse.toString());
+                Log.d("User", errorResponse.toString());
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d("User",responseString);
+                Log.d("User", responseString);
             }
 
         });
 
     }
 
-    private void PopulateUserProfile(User userProfile){
+    private void PopulateUserProfile(User userProfile) {
 
         profileName.setText(userProfile.getName());
         profileScreenName.setText("@" + userProfile.getScreenName());
         profileTagLine.setText(userProfile.getDescription());
         profileFollowing.setText(userProfile.getFriendsCount() + " Following");
         profileFollowers.setText(userProfile.getFollowersCount() + " Followers");
+
+        profileName.setClickable(false);
+        profileScreenName.setClickable(false);
+        profileImage.setClickable(false);
 
         String profileURL = userProfile.getProfileImageUrl();
         String bannerURL = userProfile.getProfileBannerUrl();
@@ -137,4 +142,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onTweetSelected(Tweet tweet) {
+
+    }
 }
