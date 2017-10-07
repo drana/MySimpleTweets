@@ -11,20 +11,36 @@
         android:id="@+id/rlUserHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
         <ImageView
             android:id="@+id/ivProfileBanner"
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:scaleType="fitXY"
             android:src="@drawable/placeholder"/>
 
-        <ImageView
+        <!--<ImageView-->
+            <!--android:id="@+id/ivProfileImage"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_below="@id/ivProfileBanner"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:src="@drawable/placeholder"/>-->
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/ivProfileImage"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_below="@id/ivProfileBanner"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/placeholder"/>
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/placeholder"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FFFFFFFF"
+            android:layout_marginStart="12dp"
+            android:layout_above="@+id/tvProfileDescription"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:id="@+id/tvProfileName"
@@ -64,18 +80,18 @@
             android:text="0 Following"
             android:layout_marginTop="3dp"
             android:textColor="@color/secondary_dark_gray"
-            android:layout_below="@+id/ivProfileImage"
-            android:layout_alignParentStart="true" />
+            android:layout_below="@+id/tvProfileDescription"
+            android:layout_alignStart="@id/ivProfileImage"/>
 
         <TextView
             android:id="@+id/tvFollowers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="20dp"
             android:text="0 Followers"
             android:textColor="@color/secondary_dark_gray"
-            android:layout_below="@+id/ivProfileImage"
+            android:layout_below="@+id/tvProfileDescription"
             android:layout_toEndOf="@+id/tvFollowing" />
 
 

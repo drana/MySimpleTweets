@@ -26,11 +26,11 @@ public class UserTimelineFragment extends TweetsListFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client = TwitterApp.getRestClient();
-        Log.d("HomeTimelineFragment", "Before LoadTweetsTimeline()");
+        Log.d("UserTimelineFragment", "Before LoadTweetsTimeline()");
 
         //populate timeline on creating the view.
         populateTimeline(false);
-        Log.d("HomeTimelineFragment", "After LoadTweetsTimeline()");
+        Log.d("UserTimelineFragment", "After LoadTweetsTimeline()");
     }
 
     public static UserTimelineFragment newInstance(String screenname){

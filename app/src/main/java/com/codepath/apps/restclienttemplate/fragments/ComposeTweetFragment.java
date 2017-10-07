@@ -35,6 +35,8 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
+//import jp.wasabeef.glide.transformations.BlurTransformation;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,21 +76,18 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
                     tvName.setText(user.getName());
                     String imgUrl = user.getProfileImageUrl();
 
+
                     Glide.with(getContext())
                             .load(imgUrl)
-                            .centerCrop()
-                            .placeholder(R.drawable.placeholder)
-                            .error(R.drawable.placeholder).into(ivProfileImage);
+                            .error(R.drawable.placeholder)
+                            .dontAnimate()
+                            .into(ivProfileImage);
+
                     Log.d("User",user.toString());
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.d("User", response.toString());
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 Log.d("User", response.toString());
             }
 

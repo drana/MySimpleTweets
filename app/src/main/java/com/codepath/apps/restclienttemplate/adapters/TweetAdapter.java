@@ -23,6 +23,7 @@ import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.utils.CommonUtils;
 import com.codepath.apps.restclienttemplate.utils.ItemClickSupport;
 
+
 import java.util.ArrayList;
 
 /**
