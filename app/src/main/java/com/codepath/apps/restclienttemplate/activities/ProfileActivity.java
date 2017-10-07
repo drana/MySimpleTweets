@@ -70,7 +70,7 @@ public class ProfileActivity extends AppCompatActivity {
                 try {
                     user  = User.getUserfromJSON(response);
                     profileName.setText(user.getName());
-                    profileScreenName.setText(user.getScreenName());
+                    profileScreenName.setText("@" + user.getScreenName());
                     profileTagLine.setText(user.getDescription());
                     profileFollowing.setText(user.getFriendsCount() + " Following");
                     profileFollowers.setText(user.getFollowersCount() + " Followers");
