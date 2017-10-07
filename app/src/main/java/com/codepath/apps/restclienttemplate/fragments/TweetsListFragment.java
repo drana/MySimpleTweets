@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TweetsListFragment extends Fragment {
+public abstract class TweetsListFragment extends Fragment {
 
     @BindView(R.id.rvTweets)RecyclerView rvTweets;
     @BindView(R.id.swipeContainer)SwipeRefreshLayout swipeContainer;
@@ -70,6 +70,9 @@ public class TweetsListFragment extends Fragment {
         //Setup scrolllistener
         SetupScrollListener();
 
+        // Adds the scroll listener to RecyclerView
+        //rvTweets.addOnScrollListener(scrollListener);
+
         SetupClickListener();
 
         Log.d("TweetListFragment", "OnCreatView()");
@@ -99,7 +102,9 @@ public class TweetsListFragment extends Fragment {
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                //LoadTweetsTimeline(true);
+                Log.d("test","testt");
+
+                LoadTweetsTimeline(true);
             }
         };
 
@@ -141,6 +146,6 @@ public class TweetsListFragment extends Fragment {
 
     }
 
-
+    abstract protected void LoadTweetsTimeline(boolean oldTweets);
 
 }

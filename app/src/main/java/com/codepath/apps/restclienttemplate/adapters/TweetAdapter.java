@@ -157,7 +157,7 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         Glide.with(mContext)
                 .load(imgUrl)
-                .placeholder(R.drawable.placeholder)
+                .centerCrop()
                 .error(R.drawable.placeholder).into(ivProfileImage);
 
         ivTweetVideo.setVideoPath("http://techslides.com/demos/sample-videos/small.mp4");
@@ -194,7 +194,6 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         Glide.with(mContext)
                 .load(imgUrl)
                 .centerCrop()
-                .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder).into(ivProfileImage);
 
 

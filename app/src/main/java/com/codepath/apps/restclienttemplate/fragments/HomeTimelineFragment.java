@@ -31,14 +31,17 @@ public class HomeTimelineFragment extends TweetsListFragment {
         super.onCreate(savedInstanceState);
         client = TwitterApp.getRestClient();
         Log.d("HomeTimelineFragment", "Before LoadTweetsTimeline()");
-        
+
         //populate timeline on creating the view.
         LoadTweetsTimeline(false);
+
         Log.d("HomeTimelineFragment", "After LoadTweetsTimeline()");
     }
 
+
+
     //get timeline whether its from scrolling or loading home page.
-    private void LoadTweetsTimeline(boolean loadOldTweets) {
+    protected void LoadTweetsTimeline(boolean loadOldTweets) {
 
         long max_id;
         if(loadOldTweets){
@@ -86,7 +89,6 @@ public class HomeTimelineFragment extends TweetsListFragment {
             }
         });
     }
-
 
 
 

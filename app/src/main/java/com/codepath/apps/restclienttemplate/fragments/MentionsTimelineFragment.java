@@ -2,10 +2,12 @@ package com.codepath.apps.restclienttemplate.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.codepath.apps.restclienttemplate.TwitterApp;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
+import com.codepath.apps.restclienttemplate.utils.EndlessRecyclerViewScrollListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -32,7 +34,7 @@ public class MentionsTimelineFragment extends TweetsListFragment {
     }
 
     //get timeline whether its from scrolling or loading home page.
-    private void LoadTweetsTimeline(boolean loadOldTweets) {
+    protected void LoadTweetsTimeline(boolean loadOldTweets) {
 
         long max_id;
         if(loadOldTweets){
@@ -80,4 +82,5 @@ public class MentionsTimelineFragment extends TweetsListFragment {
             }
         });
     }
+
 }
