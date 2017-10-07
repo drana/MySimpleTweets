@@ -132,6 +132,7 @@ public class User implements Parcelable{
         screenName = in.readString();
         id = in.readLong();
         profileImageUrl = in.readString();
+        profileBannerUrl = in.readString();
         verified = in.readByte() != 0;
     }
 
@@ -158,6 +159,7 @@ public class User implements Parcelable{
         parcel.writeString(screenName);
         parcel.writeLong(id);
         parcel.writeString(profileImageUrl);
+        parcel.writeString(profileBannerUrl);
         parcel.writeByte((byte) (verified ? 1 : 0));
     }
 

@@ -21,6 +21,7 @@ import com.codepath.apps.restclienttemplate.adapters.TweetsPagerAdapter;
 import com.codepath.apps.restclienttemplate.fragments.ComposeTweetFragment;
 import com.codepath.apps.restclienttemplate.fragments.TweetsListFragment;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.apps.restclienttemplate.models.User;
 
 
 import java.sql.Time;
@@ -34,9 +35,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
     @BindView(R.id.toolbar)Toolbar toolbar;
     @BindView(R.id.viewpager) ViewPager viewPager;
     @BindView(R.id.sliding_tabs)TabLayout tabLayout;
-
-
-
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,14 +82,16 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
             finish(); // close this activity and return to preview activity (if there is any)
         }
         else if (item.getItemId() == R.id.miProfile){
-            ShowProfileActivity();
+
+            ShowProfileActivity(user);
         }
 
         return  true;
     }
 
-    private void ShowProfileActivity() {
+    private void ShowProfileActivity(User user) {
         Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("USER",user);
         startActivity(intent);
     }
 
@@ -113,6 +114,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
 
     @Override
     public void onTweetSelected(Tweet tweet) {
+        ShowProfileActivity(tweet.getUser());
         Log.d("Clicked",tweet.getText());
     }
 }

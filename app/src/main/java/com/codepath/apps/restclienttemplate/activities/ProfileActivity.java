@@ -28,8 +28,9 @@ import cz.msebera.android.httpclient.Header;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    User user;
+
     TwitterClient client;
+    String screenName;
 
     @BindView(R.id.ivProfileBanner)
     ImageView profileBanner;
@@ -55,40 +56,34 @@ public class ProfileActivity extends AppCompatActivity {
 
         client = TwitterApp.getRestClient();
 
+        User userObject = (User) getIntent().getParcelableExtra("USER");
+        if(userObject != null && userObject.getScreenName() != null) {
+            screenName = userObject.getScreenName();
+            PopulateUserProfile(userObject);
+        }else{
+            ShowPersonalProfile();
+        }
 
-        final UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(getIntent().getStringExtra("screen_name"));
+
+
+        //final UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(userObject.getScreenName());
+        final UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(screenName);
         //create and replace placeholder with fragment
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.flPlaceHolder,userTimelineFragment);
         ft.commit();
 
-        //
+    }
+
+    private void ShowPersonalProfile(){
+
         client.getUserInfo(new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
-                    user  = User.getUserfromJSON(response);
-                    profileName.setText(user.getName());
-                    profileScreenName.setText("@" + user.getScreenName());
-                    profileTagLine.setText(user.getDescription());
-                    profileFollowing.setText(user.getFriendsCount() + " Following");
-                    profileFollowers.setText(user.getFollowersCount() + " Followers");
-
-                    String profileURL = user.getProfileImageUrl();
-                    String bannerURL = user.getProfileBannerUrl();
-
-
-                    Glide.with(getApplicationContext())
-                            .load(profileURL)
-                            .error(R.drawable.placeholder)
-                            .dontAnimate()
-                            .into(profileImage);
-
-                    Glide.with(getApplicationContext())
-                            .load(bannerURL)
-                            .error(R.drawable.placeholder)
-                            .into(profileBanner);
+                    User user  = User.getUserfromJSON(response);
+                    PopulateUserProfile(user);
 
                     Log.d("User",user.toString());
 
@@ -114,6 +109,31 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
         });
+
+    }
+
+    private void PopulateUserProfile(User userProfile){
+
+        profileName.setText(userProfile.getName());
+        profileScreenName.setText("@" + userProfile.getScreenName());
+        profileTagLine.setText(userProfile.getDescription());
+        profileFollowing.setText(userProfile.getFriendsCount() + " Following");
+        profileFollowers.setText(userProfile.getFollowersCount() + " Followers");
+
+        String profileURL = userProfile.getProfileImageUrl();
+        String bannerURL = userProfile.getProfileBannerUrl();
+
+
+        Glide.with(getApplicationContext())
+                .load(profileURL)
+                .error(R.drawable.placeholder)
+                .dontAnimate()
+                .into(profileImage);
+
+        Glide.with(getApplicationContext())
+                .load(bannerURL)
+                .error(R.drawable.placeholder)
+                .into(profileBanner);
 
     }
 
