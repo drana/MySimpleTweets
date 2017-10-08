@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -145,5 +146,11 @@ public class ProfileActivity extends AppCompatActivity implements TweetsListFrag
     @Override
     public void onTweetSelected(Tweet tweet) {
 
+    }
+
+    //back button clicked
+    public void onBackBtnClicked(View v){
+        Log.d("Button","Clicked");
+        finish();
     }
 }

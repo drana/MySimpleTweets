@@ -21,10 +21,3 @@
         android:background="@android:color/white" />
 
 </LinearLayout>
-
-
-<!--<fragment-->
-<!--android:id="@+id/fragment_timeline"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="match_parent"-->
-<!--class="com.codepath.apps.restclienttemplate.fragments.MentionsTimelineFragment"/>-->
