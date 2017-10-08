@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,6 +26,9 @@ import cz.msebera.android.httpclient.Header;
 public class HomeTimelineFragment extends TweetsListFragment {
     TwitterClient client;
 
+    public HomeTimelineFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,8 +41,6 @@ public class HomeTimelineFragment extends TweetsListFragment {
 
         Log.d("HomeTimelineFragment", "After LoadTweetsTimeline()");
     }
-
-
 
     //get timeline whether its from scrolling or loading home page.
     protected void LoadTweetsTimeline(boolean loadOldTweets) {
@@ -87,8 +89,5 @@ public class HomeTimelineFragment extends TweetsListFragment {
             }
         });
     }
-
-
-
 
 }
