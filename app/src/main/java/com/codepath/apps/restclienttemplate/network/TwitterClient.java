@@ -7,6 +7,7 @@ import com.codepath.oauth.OAuthBaseClient;
 import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.api.BaseApi;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 /*
@@ -88,6 +89,13 @@ public class TwitterClient extends OAuthBaseClient {
 		client.post(apiURL,params,handler);
 	}
 
+	public void postFavorite(long tweetId, boolean newValue, JsonHttpResponseHandler handler) {
+		String endpoint = newValue ? "create" : "destroy";
+		String apiUrl = getApiUrl("favorites/" + endpoint + ".json");
+		RequestParams params = new RequestParams();
+		params.put("id", tweetId);
+		client.post(apiUrl, params, handler);
+	}
 
 
 

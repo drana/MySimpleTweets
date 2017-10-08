@@ -76,6 +76,53 @@
         android:layout_below="@+id/tvUserName"
         android:layout_alignStart="@+id/tvUserName" />
 
+    <LinearLayout
+        android:id="@+id/llTweetActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/ivProfleImage">
+
+        <ImageButton
+            android:id="@+id/ibFavorites"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="10dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:src="@drawable/ic_favorite_border"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Favorites"/>
+
+        <ImageButton
+            android:id="@+id/ibReTweet"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="10dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:src="@drawable/ic_repeat"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Retweet"/>
+
+        <ImageButton
+            android:id="@+id/ibReply"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="20dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:src="@drawable/ic_reply"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Reply"/>
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/ivURLImage"
@@ -83,9 +130,9 @@
         android:layout_height="210dp"
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:srcCompat="@drawable/placeholder"
-        android:layout_below="@+id/ivProfleImage"
+        android:layout_below="@id/llTweetActions"
         android:layout_alignParentStart="true" />
 
 

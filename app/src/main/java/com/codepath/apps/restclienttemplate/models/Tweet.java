@@ -44,12 +44,28 @@ public class Tweet implements Parcelable{
     @SerializedName("extended_entities")
     @Expose
     private ExtendedEntities extendedEntities;
+    @SerializedName("retweet_count")
+    @Expose
+    private Integer retweetCount;
+    @SerializedName("favorite_count")
+    @Expose
+    private Integer favoriteCount;
+    @SerializedName("favorited")
+    @Expose
+    private Boolean favorited;
+    @SerializedName("retweeted")
+    @Expose
+    private Boolean retweeted;
 
 
     protected Tweet(Parcel in) {
         createdAt = in.readString();
         text = in.readString();
         id = in.readInt();
+        retweetCount = in.readInt();
+        favoriteCount = in.readInt();
+        favorited = in.readByte() != 0;
+        retweeted = in.readByte() != 0;
 
     }
 
@@ -124,6 +140,38 @@ public class Tweet implements Parcelable{
     public void setExtendedEntities(ExtendedEntities extendedEntities) {
         this.extendedEntities = extendedEntities;
     }
+    public Integer getRetweetCount() {
+        return retweetCount;
+    }
+
+    public void setRetweetCount(Integer retweetCount) {
+        this.retweetCount = retweetCount;
+    }
+
+    public Integer getFavoriteCount() {
+        return favoriteCount;
+    }
+
+    public void setFavoriteCount(Integer favoriteCount) {
+        this.favoriteCount = favoriteCount;
+    }
+
+    public Boolean getFavorited() {
+        return favorited;
+    }
+
+    public void setFavorited(Boolean favorited) {
+        this.favorited = favorited;
+    }
+
+    public Boolean getRetweeted() {
+        return retweeted;
+    }
+
+    public void setRetweeted(Boolean retweeted) {
+        this.retweeted = retweeted;
+    }
+
 
     public class Entities {
 
@@ -504,8 +552,10 @@ public class Tweet implements Parcelable{
         parcel.writeString(createdAt);
         parcel.writeString(text);
         parcel.writeLong(id);
-
-
+        parcel.writeInt(favoriteCount);
+        parcel.writeInt(retweetCount);
+        parcel.writeByte((byte) (favorited ? 1 : 0));
+        parcel.writeByte((byte) (retweeted ? 1 : 0));
     }
 
     public static Tweet parseJson(JSONObject jsonObject) throws JSONException {

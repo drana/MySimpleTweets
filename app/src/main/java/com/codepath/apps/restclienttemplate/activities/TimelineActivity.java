@@ -116,7 +116,6 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         ShowComposeTWeet();
     }
 
-
     @Override
     public void onTweetSelected(Tweet tweet) {
         ShowProfileActivity(tweet.getUser());

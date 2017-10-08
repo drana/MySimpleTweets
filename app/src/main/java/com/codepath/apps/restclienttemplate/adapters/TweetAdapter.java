@@ -162,9 +162,6 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         ivTweetVideo.setVideoPath("http://techslides.com/demos/sample-videos/small.mp4");
 
-
-
-
     }
 
     private void BindItemWithNoImage(TweetItemNoImage holder, int position) {
@@ -202,7 +199,9 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private void BindItemWithImage(TweetItem holder, int position) {
 
         // Get the data model based on position
+
         Tweet tweet = mTweets.get(position);
+        holder.tweet = tweet;
         TextView tvName = holder.getTweetName();
         TextView tvUserName = holder.getTweetUserName();
         TextView tvContent = holder.getTweetContent();
@@ -236,6 +235,8 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 .centerCrop()
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder).into(ivTweetImage);
+
+
 
     }
 

@@ -3,6 +3,7 @@ package com.codepath.apps.restclienttemplate.activities;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import com.codepath.apps.restclienttemplate.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by dipenrana on 9/27/17.
@@ -68,5 +70,40 @@ public class TweetItemNoImage extends RecyclerView.ViewHolder{
 
     }
 
+    @OnClick({ R.id.ibFavorites, R.id.ibReply, R.id.ibReTweet,R.id.ivProfleImagePlain})
+    public void onTweetItemNoImageClick(View view){
+        switch (view.getId()) {
+            case R.id.ibFavorites:
+                Log.d("click","fav");
+                break;
+            case R.id.ibReTweet:
+                Log.d("click","fav");
+                break;
+            case R.id.ibReply:
+                Log.d("click","fav");
+                break;
+            case R.id.ivProfleImagePlain:
+                Log.d("click","fav");
+                break;
+        }
 
+    }
+
+//    @Override
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.ibFavorites:
+//                Log.d("click","fav");
+//                break;
+//            case R.id.ibReTweet:
+//                Log.d("click","fav");
+//                break;
+//            case R.id.ibReply:
+//                Log.d("click","fav");
+//                break;
+//            case R.id.ivProfleImage:
+//                Log.d("click","fav");
+//                break;
+//        }
+//    }
 }
