@@ -90,6 +90,12 @@ public abstract class TweetsListFragment extends Fragment {
         Log.d("TweetList","addItems()");
     }
 
+    public void insertItem(Tweet newTweet){
+        tweets.add(0,newTweet);
+        tweetAdapter.notifyItemInserted(0);
+        rvTweets.getLayoutManager().scrollToPosition(0);
+    }
+
     public void clearTweets() {
         tweetAdapter.RemoveTweets();
     }

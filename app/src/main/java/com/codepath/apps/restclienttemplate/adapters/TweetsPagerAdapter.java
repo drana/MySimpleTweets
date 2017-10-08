@@ -14,6 +14,8 @@ import com.codepath.apps.restclienttemplate.fragments.MentionsTimelineFragment;
 
 public class TweetsPagerAdapter extends FragmentPagerAdapter {
 
+    Fragment cache[] = {null,null};
+
     private String tabTitiles[] = new String[]{"Home","Mentions"};
     private Context mContext;
 
@@ -25,13 +27,25 @@ public class TweetsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        if(position == 0){
-            return new HomeTimelineFragment();
-        }else if(position == 1){
-            return new MentionsTimelineFragment();
-        }else{
-            return null;
+        if(cache[position] == null) {
+            if(position == 0 ){
+                cache[position] = new HomeTimelineFragment();
+            }else  if (position == 1){
+                cache[position] = new MentionsTimelineFragment();
+            }
+            else
+                cache[position] = null;
         }
+
+//            if (position == 0) {
+//                return new HomeTimelineFragment();
+//            } else if (position == 1) {
+//                return new MentionsTimelineFragment();
+//            } else {
+//                return null;
+//            }
+
+        return cache[position];
 
     }
 

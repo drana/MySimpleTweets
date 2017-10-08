@@ -36,6 +36,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
     @BindView(R.id.viewpager) ViewPager viewPager;
     @BindView(R.id.sliding_tabs)TabLayout tabLayout;
     User user;
+    private TweetsPagerAdapter tweetsPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,8 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         ApplyToolBarStyle();
 
         //set adapter for view pager
-        viewPager.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager(),this));
+        tweetsPagerAdapter = new TweetsPagerAdapter(getSupportFragmentManager(),this);
+        viewPager.setAdapter(tweetsPagerAdapter);
 
         //setup tablayout view
         tabLayout.setupWithViewPager(viewPager);
@@ -104,6 +106,9 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
 
     @Override
     public void onPostNewTweet(Tweet newTweet) {
+
+        TweetsListFragment tweetsListFragment = (TweetsListFragment) tweetsPagerAdapter.getItem(0);
+        tweetsListFragment.insertItem(newTweet);
 
     }
 

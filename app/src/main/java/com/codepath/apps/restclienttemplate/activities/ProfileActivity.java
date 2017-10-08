@@ -116,6 +116,12 @@ public class ProfileActivity extends AppCompatActivity implements TweetsListFrag
 
     private void PopulateUserProfile(User userProfile) {
 
+        String screenName = "@" + userProfile.getScreenName();
+        int friends = userProfile.getFriendsCount();
+        int followers = userProfile.getFollowersCount();
+
+
+
         profileName.setText(userProfile.getName());
         profileScreenName.setText("@" + userProfile.getScreenName());
         profileTagLine.setText(userProfile.getDescription());
