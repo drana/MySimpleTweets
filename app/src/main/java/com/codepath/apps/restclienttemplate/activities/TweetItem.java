@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate.activities;
 
 import android.media.Image;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.codepath.apps.restclienttemplate.TwitterApp;
 import com.codepath.apps.restclienttemplate.fragments.ComposeTweetFragment;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -133,6 +135,8 @@ public class TweetItem extends RecyclerView.ViewHolder {
 
     }
 
+
+
     private void toggleReply() {
     }
 
@@ -141,46 +145,92 @@ public class TweetItem extends RecyclerView.ViewHolder {
     }
 
     private void toggleFavorites() {
+        Boolean favourited = tweet.getFavorited();
 
-//        TwitterApp.getRestClient().favorite(uid, favorited ^= true, handler);
-//        favoriteCount += favorited ? 1 : -1;
-            Boolean favourited = tweet.getFavorited();
-            long id = tweet.getId();
             if(!favourited){
-                client.postFavorite(id,favourited ^=true,new JsonHttpResponseHandler(){
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        super.onSuccess(statusCode, headers, response);
-                        try {
-                            Tweet updatedTweet = Tweet.parseJson(response);
-                            UpdateUI(updatedTweet);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                onFavorited();
+            }
+            else if (favourited){
+                    onUnfavourited();
+            }
+
+    }
+
+    private void onUnfavourited() {
+        long id = tweet.getId();
+        client.postFavorite(id,false,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    Tweet updatedTweet = Tweet.parseJson(response);
+                    tweet.setFavorited(updatedTweet.getFavorited());
+                    UpdateUI(updatedTweet);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 //                        Tweet newTweet = Tweet.parseJson(response);
 //                        dismiss();
 //                        ComposeTweetFragment.TweetDialogListener mListener = (ComposeTweetFragment.TweetDialogListener) getActivity();
 //                        mListener.onPostNewTweet(newTweet);
 //                        Log.d("New Tweet","tweet send to activity");
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        super.onFailure(statusCode, headers, responseString, throwable);
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                        super.onFailure(statusCode, headers, throwable, errorResponse);
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                        super.onFailure(statusCode, headers, throwable, errorResponse);
-                    }
-                });
             }
 
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+        });
+    }
+
+    private void onFavorited() {
+
+        long id = tweet.getId();
+
+        //favourited ^=true
+        client.postFavorite(id,true,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    Tweet updatedTweet = Tweet.parseJson(response);
+                    tweet.setFavorited(updatedTweet.getFavorited());
+                    UpdateUI(updatedTweet);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                        Tweet newTweet = Tweet.parseJson(response);
+//                        dismiss();
+//                        ComposeTweetFragment.TweetDialogListener mListener = (ComposeTweetFragment.TweetDialogListener) getActivity();
+//                        mListener.onPostNewTweet(newTweet);
+//                        Log.d("New Tweet","tweet send to activity");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+        });
     }
 
     private void UpdateUI(Tweet updatedTweet) {
@@ -188,7 +238,7 @@ public class TweetItem extends RecyclerView.ViewHolder {
             tweetFavorites.setImageResource(R.drawable.ic_favorite_true);
         }
         else if(!updatedTweet.getFavorited()){
-
+            tweetFavorites.setImageResource(R.drawable.ic_favorite_border);
         }
     }
 

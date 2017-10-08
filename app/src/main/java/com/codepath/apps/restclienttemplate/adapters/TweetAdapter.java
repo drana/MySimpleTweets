@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -209,6 +210,9 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         ImageView ivProfileImage =  holder.getTweetProfileImage();
         ImageView ivTweetImage = holder.getTweetUrlImage();
         ImageView ivVerifiedUser = holder.getIsVerified();
+        ImageButton ibFavorites = holder.getTweetFavorites();
+        ImageButton ibReTweet = holder.getTweetReTweet();
+        ImageButton ibReply = holder.getTweetReply();
 
         tvName.setText(tweet.getUser().getName());
         tvUserName.setText("@" + tweet.getUser().getScreenName());
@@ -219,6 +223,13 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         Boolean verified = tweet.getUser().getVerified();
         if(verified) {
             ivVerifiedUser.setVisibility(View.VISIBLE);
+        }
+
+        if(tweet.getFavorited()){
+            ibFavorites.setImageResource(R.drawable.ic_favorite_true);
+        }
+        else{
+            ibFavorites.setImageResource(R.drawable.ic_favorite_border);
         }
 
         String imgUrl = tweet.getUser().getProfileImageUrl();
