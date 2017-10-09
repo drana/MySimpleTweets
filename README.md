@@ -46,6 +46,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
+<img src='https://imgur.com/XnOWR1g.gif' title='Week 4 Assignment GIF Walkthrough' width='500' alt='Video Walkthrough' />
 <img src='https://github.com/drana/MySimpleTweets/blob/master/SimpleTweets2.0.gif' title='Week 4 App Walkthrough' width='500' alt='Video Walkthrough' />
 <img src='https://i.imgur.com/kzKAY5m.gif' title='Week 3 Assignment GIF Walkthrough' width='500' alt='Video Walkthrough' />
 
@@ -62,7 +63,7 @@ Describe any challenges encountered while building the app.
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2017] [Dipen Rana]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
