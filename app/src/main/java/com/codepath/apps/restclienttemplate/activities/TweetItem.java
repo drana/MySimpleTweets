@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate.activities;
 
+import android.graphics.Typeface;
 import android.media.Image;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -93,6 +94,30 @@ public class TweetItem extends RecyclerView.ViewHolder {
         this.tweetReply = tweetReply;
     }
 
+    public TextView getTweetFavoritesCount() {
+        return tweetFavoritesCount;
+    }
+
+    public TextView getTweetReTweetCount() {
+        return tweetReTweetCount;
+    }
+
+    public TextView getTweetReplyText() {
+        return tweetReplyText;
+    }
+
+    public void setTweetFavoritesCount(TextView tweetFavoritesCount) {
+        this.tweetFavoritesCount = tweetFavoritesCount;
+    }
+
+    public void setTweetReTweetCount(TextView tweetReTweetCount) {
+        this.tweetReTweetCount = tweetReTweetCount;
+    }
+
+    public void setTweetReplyText(TextView tweetReplyText) {
+        this.tweetReplyText = tweetReplyText;
+    }
+
     @BindView(R.id.tvName)TextView tweetName;
     @BindView(R.id.tvUserName)TextView tweetUserName;
     @BindView(R.id.tvCreatedAt)TextView tweetCreatedAt;
@@ -103,6 +128,9 @@ public class TweetItem extends RecyclerView.ViewHolder {
     @BindView(R.id.ibFavorites)ImageButton tweetFavorites;
     @BindView(R.id.ibReTweet)ImageButton tweetReTweet;
     @BindView(R.id.ibReply)ImageButton tweetReply;
+    @BindView(R.id.tvFavorites)TextView tweetFavoritesCount;
+    @BindView(R.id.tvReTweet)TextView tweetReTweetCount;
+    @BindView(R.id.tvReply)TextView tweetReplyText;
 
     //endregion
 
@@ -110,6 +138,18 @@ public class TweetItem extends RecyclerView.ViewHolder {
         super(viewItem);
         ButterKnife.bind(this,viewItem);
         client = TwitterApp.getRestClient();
+
+        // Create the TypeFace from the TTF asset
+        Typeface boldFont = Typeface.createFromAsset(viewItem.getContext().getAssets(), "fonts/HelveticaNeue-Bold.ttf");
+        Typeface regularFont = Typeface.createFromAsset(viewItem.getContext().getAssets(), "fonts/HelveticaNeue.ttf");
+        // Assign the typeface to the view
+        tweetName.setTypeface(boldFont);
+        tweetUserName.setTypeface(regularFont);
+        tweetCreatedAt.setTypeface(regularFont);
+        tweetContent.setTypeface(regularFont);
+        tweetFavoritesCount.setTypeface(regularFont);
+        tweetReTweetCount.setTypeface(regularFont);
+        tweetReplyText.setTypeface(regularFont);
 
     }
 
@@ -128,9 +168,9 @@ public class TweetItem extends RecyclerView.ViewHolder {
                 toggleReply();
                 Log.d("click","fav");
                 break;
-            case R.id.ivProfleImage:
-                Log.d("click","fav");
-                break;
+//            case R.id.ivProfleImage:
+//                Log.d("click","fav");
+//                break;
         }
 
     }
@@ -169,11 +209,6 @@ public class TweetItem extends RecyclerView.ViewHolder {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-//                        Tweet newTweet = Tweet.parseJson(response);
-//                        dismiss();
-//                        ComposeTweetFragment.TweetDialogListener mListener = (ComposeTweetFragment.TweetDialogListener) getActivity();
-//                        mListener.onPostNewTweet(newTweet);
-//                        Log.d("New Tweet","tweet send to activity");
             }
 
             @Override
@@ -197,7 +232,6 @@ public class TweetItem extends RecyclerView.ViewHolder {
 
         long id = tweet.getId();
 
-        //favourited ^=true
         client.postFavorite(id,true,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -209,11 +243,6 @@ public class TweetItem extends RecyclerView.ViewHolder {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-//                        Tweet newTweet = Tweet.parseJson(response);
-//                        dismiss();
-//                        ComposeTweetFragment.TweetDialogListener mListener = (ComposeTweetFragment.TweetDialogListener) getActivity();
-//                        mListener.onPostNewTweet(newTweet);
-//                        Log.d("New Tweet","tweet send to activity");
             }
 
             @Override

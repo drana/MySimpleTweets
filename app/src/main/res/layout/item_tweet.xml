@@ -38,7 +38,7 @@
         android:id="@+id/ivVerifiedUser"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        android:layout_marginLeft="3dp"
+        android:layout_marginLeft="5dp"
         android:src="@drawable/ic_verified_badge"
         android:layout_toRightOf="@id/tvName"
         android:visibility="invisible"/>
@@ -80,46 +80,57 @@
         android:id="@+id/llTweetActions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
-        android:layout_below="@id/ivProfleImage">
+        android:layout_below="@id/ivProfleImage"
+        android:layout_toEndOf="@+id/ivProfleImage">
 
         <ImageButton
             android:id="@+id/ibFavorites"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginLeft="10dp"
             style="?android:attr/borderlessButtonStyle"
             android:src="@drawable/ic_favorite_border"/>
         <TextView
+            android:id="@+id/tvFavorites"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/secondary_dark_gray"
             android:text=" Favorites"/>
 
         <ImageButton
             android:id="@+id/ibReTweet"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginLeft="10dp"
             style="?android:attr/borderlessButtonStyle"
             android:src="@drawable/ic_repeat"/>
 
         <TextView
+            android:id="@+id/tvReTweet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/secondary_dark_gray"
             android:text=" Retweet"/>
 
         <ImageButton
             android:id="@+id/ibReply"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="20dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
             style="?android:attr/borderlessButtonStyle"
             android:src="@drawable/ic_reply"/>
 
         <TextView
+            android:id="@+id/tvReply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/secondary_dark_gray"
             android:text=" Reply"/>
     </LinearLayout>
 

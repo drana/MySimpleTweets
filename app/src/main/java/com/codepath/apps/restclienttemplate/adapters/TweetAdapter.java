@@ -169,12 +169,17 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         // Get the data model based on position
         Tweet tweet = mTweets.get(position);
+        holder.tweetPlain = tweet;
+
         TextView tvName = holder.getTweetName();
         TextView tvUserName = holder.getTweetUserName();
         TextView tvContent = holder.getTweetContent();
         TextView tvCreateAt =  holder.getTweetCreatedAt();
         ImageView ivProfileImage =  holder.getTweetProfileImage();
         ImageView ivVerifiedUser = holder.getIvVerifiedUserPlain();
+        ImageButton ibFavorites = holder.getTweetFavorites();
+        ImageButton ibReTweet = holder.getTweetReTweet();
+        ImageButton ibReply = holder.getTweetReply();
 
         tvName.setText(tweet.getUser().getName());
         tvUserName.setText("@" + tweet.getUser().getScreenName());
@@ -185,6 +190,13 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         Boolean verified = tweet.getUser().getVerified();
         if(verified) {
             ivVerifiedUser.setVisibility(View.VISIBLE);
+        }
+
+        if(tweet.getFavorited()){
+            ibFavorites.setImageResource(R.drawable.ic_favorite_true);
+        }
+        else{
+            ibFavorites.setImageResource(R.drawable.ic_favorite_border);
         }
 
         String imgUrl = tweet.getUser().getProfileImageUrl();
