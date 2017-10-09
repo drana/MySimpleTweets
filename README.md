@@ -46,7 +46,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://imgur.com/XnOWR1g.gif' title='Week 4 Assignment GIF Walkthrough' width='500' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/XnOWR1g.gif' title='Week 4 Assignment GIF Walkthrough' width='500' alt='Walkthrough' />
 <img src='https://github.com/drana/MySimpleTweets/blob/master/SimpleTweets2.0.gif' title='Week 4 App Walkthrough' width='500' alt='Video Walkthrough' />
 <img src='https://i.imgur.com/kzKAY5m.gif' title='Week 3 Assignment GIF Walkthrough' width='500' alt='Video Walkthrough' />
 
