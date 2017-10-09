@@ -164,10 +164,10 @@ public class TweetItem extends RecyclerView.ViewHolder {
                 toggleReTweet();
                 Log.d("click","fav");
                 break;
-            case R.id.ibReply:
-                toggleReply();
-                Log.d("click","fav");
-                break;
+//            case R.id.ibReply:
+//                toggleReply();
+//                Log.d("click","fav");
+//                break;
 //            case R.id.ivProfleImage:
 //                Log.d("click","fav");
 //                break;
@@ -177,8 +177,9 @@ public class TweetItem extends RecyclerView.ViewHolder {
 
 
 
-    private void toggleReply() {
-    }
+//    private void toggleReply() {
+//
+//    }
 
     private void toggleReTweet() {
         Boolean reTweeted = tweet.getRetweeted();

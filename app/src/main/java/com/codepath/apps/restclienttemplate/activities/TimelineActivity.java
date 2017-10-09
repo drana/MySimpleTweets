@@ -17,6 +17,7 @@ import android.view.View;
 
 
 import com.codepath.apps.restclienttemplate.R;
+import com.codepath.apps.restclienttemplate.adapters.TweetAdapter;
 import com.codepath.apps.restclienttemplate.adapters.TweetsPagerAdapter;
 import com.codepath.apps.restclienttemplate.fragments.ComposeTweetFragment;
 import com.codepath.apps.restclienttemplate.fragments.TweetsListFragment;
@@ -36,6 +37,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
     @BindView(R.id.viewpager) ViewPager viewPager;
     @BindView(R.id.sliding_tabs)TabLayout tabLayout;
     User user;
+    Tweet tweetReply;
     private TweetsPagerAdapter tweetsPagerAdapter;
 
     @Override
@@ -99,7 +101,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
 
     private void ShowComposeTWeet() {
         FragmentManager fm = getSupportFragmentManager();
-        ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance();
+        ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance(tweetReply);
         composeTweetFragment.setStyle( DialogFragment.STYLE_NORMAL, R.style.AppBaseTheme );// fragment fullscreen
         composeTweetFragment.show(fm, "tweetFrag");
     }
@@ -120,5 +122,14 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
     public void onTweetSelected(Tweet tweet) {
         ShowProfileActivity(tweet.getUser());
         Log.d("Clicked",tweet.getText());
+    }
+
+    @Override
+    public void onReplyTweetItem(Tweet tweet) {
+        FragmentManager fm = getSupportFragmentManager();
+        ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance(tweet);
+        composeTweetFragment.setStyle( DialogFragment.STYLE_NORMAL, R.style.AppBaseTheme );// fragment fullscreen
+        composeTweetFragment.show(fm, "tweetFrag");
+        Log.d("click","click");
     }
 }

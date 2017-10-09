@@ -52,14 +52,18 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
     @BindView(R.id.ivComposeCancel)ImageButton btnCancel;
     TwitterClient client;
     User user;
+    Tweet tweetReplied;
 
 
     public ComposeTweetFragment() {
         // Required empty public constructor
     }
 
-    public static ComposeTweetFragment newInstance() {
+    public static ComposeTweetFragment newInstance(Tweet tweetReply) {
         ComposeTweetFragment fragment = new ComposeTweetFragment();
+        Bundle args = new Bundle();
+        args.putParcelable("REPLYTWEET", tweetReply);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -67,10 +71,20 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client = TwitterApp.getRestClient();
+
+
+
+
         client.getUserInfo(new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
+                    tweetReplied = getArguments().getParcelable("REPLYTWEET");
+
+                    if(tweetReplied !=null){
+                        etTweetMessage.setText("@" + tweetReplied.getUser().getScreenName() + ": ");
+                        etTweetMessage.setSelection(etTweetMessage.getText().length());
+                    }
                     user  = User.getUserfromJSON(response);
                     tvUserName.setText("@"+user.getScreenName());
                     tvName.setText(user.getName());
@@ -186,8 +200,12 @@ public class ComposeTweetFragment extends DialogFragment implements View.OnClick
     private void OnTweetBtnClicked() {
         client = TwitterApp.getRestClient();
 
+        long inReplyToID = -1;
+        if(tweetReplied != null) {
+            inReplyToID = tweetReplied.getId();
+        }
         //post the new tweet
-        client.postNewTweet(etTweetMessage.getText().toString(),new JsonHttpResponseHandler(){
+        client.postNewTweet(etTweetMessage.getText().toString(),inReplyToID,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {

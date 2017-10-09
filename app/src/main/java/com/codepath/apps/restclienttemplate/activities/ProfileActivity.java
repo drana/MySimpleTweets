@@ -30,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
-public class ProfileActivity extends AppCompatActivity implements TweetsListFragment.TweetSelectedListener{
+public class ProfileActivity extends AppCompatActivity {
 
 
     TwitterClient client;
@@ -153,10 +153,6 @@ public class ProfileActivity extends AppCompatActivity implements TweetsListFrag
 
     }
 
-    @Override
-    public void onTweetSelected(Tweet tweet) {
-
-    }
 
     //back button clicked
     public void onBackBtnClicked(View v){

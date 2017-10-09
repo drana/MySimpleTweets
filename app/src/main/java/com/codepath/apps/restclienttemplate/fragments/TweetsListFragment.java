@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public abstract class TweetsListFragment extends Fragment {
+public abstract class TweetsListFragment extends Fragment implements TweetAdapter.ReplyItemListener{
 
     @BindView(R.id.rvTweets)RecyclerView rvTweets;
     @BindView(R.id.swipeContainer)SwipeRefreshLayout swipeContainer;
@@ -41,6 +41,7 @@ public abstract class TweetsListFragment extends Fragment {
 
     public interface TweetSelectedListener{
         public void onTweetSelected(Tweet tweet);
+        public void onReplyTweetItem(Tweet tweet);
     }
 
     public TweetsListFragment() {
@@ -56,7 +57,7 @@ public abstract class TweetsListFragment extends Fragment {
 
         tweets = new ArrayList<>();
         //construct adapter from data source
-        tweetAdapter= new TweetAdapter(getContext(),tweets);
+        tweetAdapter= new TweetAdapter(getContext(),tweets,(TweetAdapter.ReplyItemListener)this);
         //set adapter and layout manager
         rvTweets.setAdapter(tweetAdapter);
         linearLayoutManager = new LinearLayoutManager(getContext());
@@ -151,4 +152,8 @@ public abstract class TweetsListFragment extends Fragment {
 
     abstract protected void LoadTweetsTimeline(boolean oldTweets);
 
+    @Override
+    public void onReplyButton(Tweet tweet) {
+        ((TweetSelectedListener)getActivity()).onReplyTweetItem(tweet);
+    }
 }

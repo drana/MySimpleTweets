@@ -23,6 +23,7 @@ import com.codepath.apps.restclienttemplate.activities.TweetItemVideo;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.utils.CommonUtils;
 import com.codepath.apps.restclienttemplate.utils.ItemClickSupport;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 
 import java.util.ArrayList;
@@ -34,12 +35,17 @@ import java.util.ArrayList;
 public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context mContext;
     ArrayList<Tweet> mTweets = new ArrayList<Tweet>();
+    private ReplyItemListener listener;
+
+    public interface ReplyItemListener {
+        public void onReplyButton(Tweet tweet);
+    }
 
     //constructor
-    public TweetAdapter(Context context, ArrayList<Tweet> tweets){
-
+    public TweetAdapter(Context context, ArrayList<Tweet> tweets, ReplyItemListener replyItemListener){
         mContext = context;
         mTweets = tweets;
+        listener = replyItemListener;
     }
 
     @Override
@@ -88,6 +94,7 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             case CommonUtils.TWEET_IMAGE:
                 View vTweetImage = inflater.inflate(R.layout.item_tweet, parent, false);
                 viewHolder = new TweetItem(vTweetImage);
+
                 break;
             case CommonUtils.TWEET_NO_IMAGE:
                 View vTweetNoImage = inflater.inflate(R.layout.item_tweet_no_image, parent, false);
@@ -214,7 +221,7 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     }
 
-    private void BindItemWithImage(TweetItem holder, int position) {
+    private void BindItemWithImage(final TweetItem holder, int position) {
 
         // Get the data model based on position
 
@@ -240,6 +247,14 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         tvCreateAt.setText(parseDateTime);
         tvFavoritesCount.setText(Integer.toString(tweet.getFavoriteCount()));
         tvReTweetCount.setText(Integer.toString(tweet.getRetweetCount()));
+
+        ibReply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onReplyButton(mTweets.get(holder.getAdapterPosition()));
+
+            }
+        });
 
         Boolean verified = tweet.getUser().getVerified();
         if(verified) {

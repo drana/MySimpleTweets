@@ -60,7 +60,7 @@
 <EditText
     android:id="@+id/etTweetMssg"
     android:layout_width="match_parent"
-    android:layout_height="400dp"
+    android:layout_height="420dp"
     android:layout_below="@+id/ivProfileImageCompose"
     android:layout_marginTop="12dp"
     android:hint="What's Happening?"
@@ -92,13 +92,14 @@
     android:id="@+id/btnTweet"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_below="@id/tvDivider"
-    android:layout_alignParentEnd="true"
     android:layout_marginRight="5dp"
     android:text="Tweet"
     android:textAllCaps="false"
     android:textColor="@color/secondary_white"
-    android:background="@color/primary"/>
+    android:background="@drawable/pill_filled"
+    android:layout_alignParentBottom="true"
+    android:layout_alignEnd="@+id/tvDivider"
+    android:layout_marginBottom="10dp" />
 
 
 </RelativeLayout>
