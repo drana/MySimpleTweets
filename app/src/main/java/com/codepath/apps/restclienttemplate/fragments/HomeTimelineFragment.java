@@ -7,11 +7,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApp;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
+import com.codepath.apps.restclienttemplate.utils.CommonUtils;
 import com.codepath.apps.restclienttemplate.utils.EndlessRecyclerViewScrollListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONArray;
@@ -58,6 +60,10 @@ public class HomeTimelineFragment extends TweetsListFragment {
     }
 
     private void populateTimeline(long max_id, final Boolean loadOldTweets) {
+        
+        if(!CommonUtils.isNetworkAvailable(getContext())){
+            Toast.makeText(getContext(), "Network is unavailable, please connect to internet for app to get latest updates..", Toast.LENGTH_SHORT).show();
+        }
 
         client.getHomeTimeline(max_id, new JsonHttpResponseHandler(){
             @Override

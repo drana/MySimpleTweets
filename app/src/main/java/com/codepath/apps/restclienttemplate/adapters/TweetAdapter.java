@@ -172,7 +172,7 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     }
 
-    private void BindItemWithNoImage(TweetItemNoImage holder, int position) {
+    private void BindItemWithNoImage(final TweetItemNoImage holder, int position) {
 
         // Get the data model based on position
         Tweet tweet = mTweets.get(position);
@@ -198,6 +198,14 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         tvCreateAt.setText(parseDateTime);
         tvFavoritesCount.setText(Integer.toString(tweet.getFavoriteCount()));
         tvReTweetCount.setText(Integer.toString(tweet.getRetweetCount()));
+
+        ibReply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onReplyButton(mTweets.get(holder.getAdapterPosition()));
+
+            }
+        });
 
         Boolean verified = tweet.getUser().getVerified();
         if(verified) {
