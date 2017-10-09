@@ -90,7 +90,6 @@
             android:id="@+id/ibFavorites"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="10dp"
             style="?android:attr/borderlessButtonStyle"
             android:src="@drawable/ic_favorite_border"/>
         <TextView
@@ -98,6 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="3dp"
             android:textColor="@color/secondary_dark_gray"
             android:text=" Favorites"/>
 
@@ -105,7 +105,7 @@
             android:id="@+id/ibReTweet"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="25dp"
             style="?android:attr/borderlessButtonStyle"
             android:src="@drawable/ic_repeat"/>
 
@@ -113,6 +113,7 @@
             android:id="@+id/tvReTweet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
             android:layout_gravity="center"
             android:textColor="@color/secondary_dark_gray"
             android:text=" Retweet"/>
@@ -121,7 +122,7 @@
             android:id="@+id/ibReply"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="25dp"
             style="?android:attr/borderlessButtonStyle"
             android:src="@drawable/ic_reply"/>
 
@@ -130,6 +131,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="3dp"
+            android:textSize="15dp"
             android:textColor="@color/secondary_dark_gray"
             android:text=" Reply"/>
     </LinearLayout>

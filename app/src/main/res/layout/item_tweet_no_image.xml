@@ -97,6 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="3dp"
             android:textColor="@color/secondary_dark_gray"
             android:text=" Favorites"/>
 
@@ -104,7 +105,7 @@
             android:id="@+id/ibReTweetPlain"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="25dp"
             style="?android:attr/borderlessButtonStyle"
             android:src="@drawable/ic_repeat"/>
 
@@ -113,6 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="3dp"
             android:textColor="@color/secondary_dark_gray"
             android:text=" Retweet"/>
 
@@ -120,7 +122,7 @@
             android:id="@+id/ibReplyPlain"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="25dp"
             style="?android:attr/borderlessButtonStyle"
             android:src="@drawable/ic_reply"/>
 
@@ -129,6 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="3dp"
             android:textColor="@color/secondary_dark_gray"
             android:text=" Reply"/>
     </LinearLayout>

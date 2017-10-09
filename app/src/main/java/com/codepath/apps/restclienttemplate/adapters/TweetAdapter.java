@@ -180,12 +180,17 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         ImageButton ibFavorites = holder.getTweetFavorites();
         ImageButton ibReTweet = holder.getTweetReTweet();
         ImageButton ibReply = holder.getTweetReply();
+        TextView tvFavoritesCount = holder.getTweetFavoritesCount();
+        TextView tvReTweetCount = holder.getTweetRetweetCount();
+
 
         tvName.setText(tweet.getUser().getName());
         tvUserName.setText("@" + tweet.getUser().getScreenName());
         tvContent.setText(tweet.getText());
         String parseDateTime = CommonUtils.getRelativeTimeAgo(tweet.getCreatedAt());
         tvCreateAt.setText(parseDateTime);
+        tvFavoritesCount.setText(Integer.toString(tweet.getFavoriteCount()));
+        tvReTweetCount.setText(Integer.toString(tweet.getRetweetCount()));
 
         Boolean verified = tweet.getUser().getVerified();
         if(verified) {
@@ -225,12 +230,16 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         ImageButton ibFavorites = holder.getTweetFavorites();
         ImageButton ibReTweet = holder.getTweetReTweet();
         ImageButton ibReply = holder.getTweetReply();
+        TextView tvFavoritesCount = holder.getTweetFavoritesCount();
+        TextView tvReTweetCount = holder.getTweetReTweetCount();
 
         tvName.setText(tweet.getUser().getName());
         tvUserName.setText("@" + tweet.getUser().getScreenName());
         tvContent.setText(tweet.getText().replace("\n",""));
         String parseDateTime = CommonUtils.getRelativeTimeAgo(tweet.getCreatedAt());
         tvCreateAt.setText(parseDateTime);
+        tvFavoritesCount.setText(Integer.toString(tweet.getFavoriteCount()));
+        tvReTweetCount.setText(Integer.toString(tweet.getRetweetCount()));
 
         Boolean verified = tweet.getUser().getVerified();
         if(verified) {
@@ -242,6 +251,12 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
         else{
             ibFavorites.setImageResource(R.drawable.ic_favorite_border);
+        }
+        if(tweet.getRetweeted()){
+            ibReTweet.setImageResource(R.drawable.ic_repeat_true);
+        }
+        else if(!tweet.getRetweeted()){
+            ibReTweet.setImageResource(R.drawable.ic_repeat);
         }
 
         String imgUrl = tweet.getUser().getProfileImageUrl();

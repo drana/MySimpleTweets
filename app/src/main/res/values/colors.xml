@@ -9,6 +9,7 @@
     <color name="secondary_white">#FFFFFF</color>
     <color name="divider">#657786</color>
     <color name="favorite">#e0245e</color>
+    <color name="retweet">#6dbd6c</color>
 
 
 </resources>

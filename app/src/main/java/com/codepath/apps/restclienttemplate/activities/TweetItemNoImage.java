@@ -150,6 +150,7 @@ public class TweetItemNoImage extends RecyclerView.ViewHolder{
                 Log.d("click","fav");
                 break;
             case R.id.ibReTweetPlain:
+                toggleReTweet();
                 Log.d("click","fav");
                 break;
             case R.id.ibReplyPlain:
@@ -160,6 +161,50 @@ public class TweetItemNoImage extends RecyclerView.ViewHolder{
 //                break;
         }
 
+    }
+
+    private void toggleReTweet() {
+        Boolean reTweeted = tweetPlain.getRetweeted();
+
+        if(!reTweeted){
+            onReTweet(true);
+        }
+        else if (reTweeted){
+            onReTweet(false);
+        }
+
+    }
+
+    private void onReTweet(final Boolean reTweeted){
+        long id = tweetPlain.getId();
+        client.postRetweet(id,reTweeted,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    Tweet updatedTweet = Tweet.parseJson(response);
+                    tweetPlain.setRetweeted(updatedTweet.getRetweeted());
+                    UpdateUI(updatedTweet);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+        });
     }
 
     private void toggleFavorites() {
@@ -247,6 +292,14 @@ public class TweetItemNoImage extends RecyclerView.ViewHolder{
         else if(!updatedTweet.getFavorited()){
             tweetFavorites.setImageResource(R.drawable.ic_favorite_border);
         }
+        if(updatedTweet.getRetweeted()){
+            tweetReTweet.setImageResource(R.drawable.ic_repeat_true);
+        }
+        else if(!updatedTweet.getRetweeted()){
+            tweetReTweet.setImageResource(R.drawable.ic_repeat);
+        }
+        tweetFavoritesCount.setText(Integer.toString(updatedTweet.getFavoriteCount()));
+        tweetRetweetCount.setText(Integer.toString(updatedTweet.getRetweetCount()));
     }
 
 }
