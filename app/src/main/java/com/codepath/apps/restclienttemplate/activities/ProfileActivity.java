@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate.activities;
 
+import android.graphics.Typeface;
 import android.media.Image;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -35,20 +36,13 @@ public class ProfileActivity extends AppCompatActivity implements TweetsListFrag
     TwitterClient client;
     String screenName;
 
-    @BindView(R.id.ivProfileBanner)
-    ImageView profileBanner;
-    @BindView(R.id.ivProfileImage)
-    ImageView profileImage;
-    @BindView(R.id.tvProfileName)
-    TextView profileName;
-    @BindView(R.id.tvProfileScreenName)
-    TextView profileScreenName;
-    @BindView(R.id.tvProfileDescription)
-    TextView profileTagLine;
-    @BindView(R.id.tvFollowing)
-    TextView profileFollowing;
-    @BindView(R.id.tvFollowers)
-    TextView profileFollowers;
+    @BindView(R.id.ivProfileBanner)    ImageView profileBanner;
+    @BindView(R.id.ivProfileImage)    ImageView profileImage;
+    @BindView(R.id.tvProfileName)    TextView profileName;
+    @BindView(R.id.tvProfileScreenName)    TextView profileScreenName;
+    @BindView(R.id.tvProfileDescription)    TextView profileTagLine;
+    @BindView(R.id.tvFollowing)    TextView profileFollowing;
+    @BindView(R.id.tvFollowers)    TextView profileFollowers;
 
 
     @Override
@@ -75,6 +69,16 @@ public class ProfileActivity extends AppCompatActivity implements TweetsListFrag
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.flPlaceHolder, userTimelineFragment);
         ft.commit();
+
+        // Create the TypeFace from the TTF asset
+        Typeface boldFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/HelveticaNeue-Bold.ttf");
+        Typeface regularFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/HelveticaNeue.ttf");
+        // Assign the typeface to the view
+        profileName.setTypeface(boldFont);
+        profileScreenName.setTypeface(regularFont);
+        profileTagLine.setTypeface(regularFont);
+        profileFollowing.setTypeface(boldFont);
+        profileFollowers.setTypeface(boldFont);
 
     }
 
@@ -125,8 +129,8 @@ public class ProfileActivity extends AppCompatActivity implements TweetsListFrag
         profileName.setText(userProfile.getName());
         profileScreenName.setText("@" + userProfile.getScreenName());
         profileTagLine.setText(userProfile.getDescription());
-        profileFollowing.setText(userProfile.getFriendsCount() + " Following");
-        profileFollowers.setText(userProfile.getFollowersCount() + " Followers");
+        profileFollowing.setText(Integer.toString(userProfile.getFriendsCount()));
+        profileFollowers.setText(Integer.toString(userProfile.getFollowersCount()));
 
         profileName.setClickable(false);
         profileScreenName.setClickable(false);
